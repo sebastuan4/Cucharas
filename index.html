@@ -21,7 +21,7 @@
         <p>Cada Cuchara suele ser una sorpresa donde se eligen ingredientes con tematica por paises o de forma aleatoria, cuando nos reunimos descubrimos las recetas que cada uno hizo, este sera un recopilatorio de esas recetas.</p>
     </section>
 
-    <<section class="search-section">
+    <section class="search-section">
         <input type="text" id="searchInput" placeholder="Buscar por receta, ingrediente o palabra clave...">
         <div class="filter-buttons">
             <button class="filter-btn active" data-filter="all">Todos</button>
@@ -32,118 +32,316 @@
     </section>
 
     <section class="recipes-container">
+        
         <h2 class="philosophy category-title">Entradas</h2>
         <div class="grid">
             <div class="card" data-category="entrada">
                 <div class="card-image img-capresse"></div>
                 <div class="card-content">
                     <h3>Capresse</h3>
-                    <p>Capresse</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Ensalada fresca italiana</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Tomates frescos rebanados</li>
+                            <li>Queso mozzarella en rodajas</li>
+                            <li>Hojas de albahaca fresca</li>
+                            <li>Aceite de oliva extra virgen y reducción de vinagre balsámico</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Intercalar una rodaja de tomate, una de queso y una hoja de albahaca.</li>
+                            <li>Aderezar con sal, pimienta, aceite de oliva y un toque de balsámico.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="entrada">
                 <div class="card-image img-scoby"></div>
                 <div class="card-content">
                     <h3>Montaditos</h3>
                     <p>Tostada de pan arreglado con 3 sabores y una hermosa flor de carne</p>
-                    <a href="#" class="btn">View Technique</a>
+                    <a href="#" class="btn view-recipe-btn">View Technique</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Rebanadas de pan baguette tostado</li>
+                            <li>Prosciutto o jamón serrano</li>
+                            <li>Queso crema y mermelada de higo</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Tostar el pan con un poco de aceite de oliva.</li>
+                            <li>Untar el queso, añadir mermelada y armar una "flor" doblando el prosciutto en la cima.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="entrada">
                 <div class="card-image img-dip"></div>
                 <div class="card-content">
                     <h3>Dip de hongos con tocineta</h3>
-                    <p>Dip</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Dip cremoso caliente</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>200g de champiñones picados</li>
+                            <li>150g de tocineta crujiente</li>
+                            <li>1 bloque de queso crema</li>
+                            <li>Ajo y cebolla finamente picados</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Sofreír la tocineta, retirar y en esa misma grasa cocinar ajo, cebolla y hongos.</li>
+                            <li>Mezclar con el queso crema hasta integrar. Servir caliente con tostadas.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="entrada">
                 <div class="card-image img-dip2"></div>
                 <div class="card-content">
                     <h3>Dip de quesos</h3>
-                    <p>Dip</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Mezcla fundida</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Queso cheddar, mozzarella y parmesano rallados</li>
+                            <li>Queso crema</li>
+                            <li>Pizca de pimentón y ajo en polvo</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Mezclar todos los quesos en un recipiente apto para horno.</li>
+                            <li>Hornear a 200°C hasta que dore y burbujee. Acompañar con nachos o pan.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="entrada">
                 <div class="card-image img-focaccia"></div>
                 <div class="card-content">
                     <h3>Focaccia de varios sabores</h3>
-                    <p>Focaccia</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Pan plano italiano</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>500g de harina de trigo</li>
+                            <li>Levadura fresca, agua y mucho aceite de oliva</li>
+                            <li>Romero, sal gruesa, tomates cherry y aceitunas</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Amasar harina, agua y levadura. Dejar levar por 2 horas.</li>
+                            <li>Extender en bandeja, hacer hoyos con los dedos, añadir aceite, sal e ingredientes. Hornear.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="entrada">
                 <div class="card-image img-papa"></div>
                 <div class="card-content">
-                    <h3>Papa asada rellena </h3>
+                    <h3>Papa asada rellena</h3>
                     <p>Papa asada</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Papas grandes para asar</li>
+                            <li>Mantequilla, natilla (crema agria)</li>
+                            <li>Queso rallado y cebollín</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Envolver las papas en aluminio y hornear a 200°C por 1 hora.</li>
+                            <li>Abrir por el centro, hacer puré la pulpa y mezclar con mantequilla, queso y crema.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="entrada">
                 <div class="card-image img-pasta"></div>
                 <div class="card-content">
                     <h3>Trenette al pesto</h3>
                     <p>Pasta</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Pasta tipo Trenette o Linguine</li>
+                            <li>Albahaca fresca, ajo, piñones (o nueces)</li>
+                            <li>Parmesano y aceite de oliva</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Hacer el pesto procesando albahaca, ajo, nueces, queso y aceite.</li>
+                            <li>Hervir la pasta, escurrir y mezclar fuera del fuego con el pesto.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="entrada">
                 <div class="card-image img-naan"></div>
                 <div class="card-content">
-                    <h3>Naan Con Butter Chicken Curry</h3>
-                    <p>Naan Con Butter Chicken Curry</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <h3>Naan Con Butter Chicken</h3>
+                    <p>Pan indio con curry</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Para el Naan: Harina, yogurt, levadura.</li>
+                            <li>Pollo marinado en especias (garam masala).</li>
+                            <li>Salsa de tomate, crema y mantequilla.</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Cocinar los panes naan en un sartén muy caliente.</li>
+                            <li>Guisar el pollo en la salsa cremosa de tomate y especias. Servir juntos para remojar.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="entrada">
                 <div class="card-image img-tacochino"></div>
                 <div class="card-content">
                     <h3>Tacos chino</h3>
-                    <p>Tacos chino</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Tacos estilo asiático</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Hojas de masa wantán o repollo como base</li>
+                            <li>Carne de cerdo molida sofrita con jengibre y ajo</li>
+                            <li>Zanahoria rallada y salsa de soya</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Saltear la carne con las verduras y salsas asiáticas.</li>
+                            <li>Servir sobre la base elegida y añadir maní triturado por encima.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="entrada">
                 <div class="card-image img-Kolokithokeftedes"></div>
                 <div class="card-content">
                     <h3>Kolokithokeftedes</h3>
-                    <p>Kolokithokeftedes</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Croquetas griegas de calabacín</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Calabacín (zucchini) rallado y escurrido</li>
+                            <li>Queso feta, eneldo fresco y menta</li>
+                            <li>Huevo y un poco de harina</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Mezclar todos los ingredientes hasta formar una masa manejable.</li>
+                            <li>Formar bolitas, aplanar ligeramente y freír en aceite de oliva hasta dorar.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="entrada">
                 <div class="card-image img-sopa"></div>
                 <div class="card-content">
                     <h3>Sopa de cebolla francesa</h3>
-                    <p>Sopa de cebolla francesa</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Sopa clásica</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Cebollas en juliana caramelizadas</li>
+                            <li>Caldo de res oscuro</li>
+                            <li>Pan baguette y queso gruyere</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Caramelizar la cebolla a fuego muy lento por 40 mins.</li>
+                            <li>Agregar el caldo. Servir en tazones, coronar con pan y queso, y gratinar al horno.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="entrada">
                 <div class="card-image img-PanSLevadura"></div>
                 <div class="card-content">
                     <h3>Pan de romero sin levadura</h3>
-                    <p>Pan sin levadura</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Pan rápido</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Harina de trigo, polvo de hornear y sal</li>
+                            <li>Agua y aceite de oliva</li>
+                            <li>Romero fresco picado</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Mezclar secos, añadir agua y aceite hasta formar masa.</li>
+                            <li>Aplanar en un sartén y cocinar vuelta y vuelta hasta que esté dorado y cocido.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="entrada">
                 <div class="card-image img-rollo"></div>
                 <div class="card-content">
                     <h3>Rollitos Primavera</h3>
-                    <p>Rollitos Primavera</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Rollitos frescos o fritos</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Hojas de papel de arroz</li>
+                            <li>Fideos de arroz cocidos</li>
+                            <li>Zanahoria, pepino y camarones (opcional)</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Hidratar el papel de arroz en agua tibia por 10 segundos.</li>
+                            <li>Rellenar con los vegetales, enrollar apretado y servir con salsa de maní.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="entrada">
                 <div class="card-image img-focaccia2"></div>
                 <div class="card-content">
-                    <h3>Focaccia de albahaca y dip de queso crema</h3>
-                    <p>Focaccia</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <h3>Focaccia de albahaca y dip</h3>
+                    <p>Focaccia especial</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Masa base de focaccia (harina, levadura, agua)</li>
+                            <li>Albahaca fresca licuada con el aceite de la masa</li>
+                            <li>Dip de queso crema al ajo</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Hornear la focaccia infundida de color verde por la albahaca.</li>
+                            <li>Servir tibia acompañada del dip de queso crema para untar.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
@@ -154,48 +352,134 @@
                 <div class="card-image img-risotto"></div>
                 <div class="card-content">
                     <h3>Risotto con trufa y parmesano</h3>
-                    <p>Risotto</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Arroz cremoso italiano</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Arroz Arborio o Carnaroli</li>
+                            <li>Caldo de pollo o vegetales muy caliente</li>
+                            <li>Mantequilla, queso parmesano rallado</li>
+                            <li>Aceite o pasta de trufa negra</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Tostar el arroz y agregar el caldo cucharón a cucharón sin dejar de remover.</li>
+                            <li>Apagar el fuego, añadir mantequilla, queso y la trufa. Emulsionar vigorosamente.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="fuerte">
                 <div class="card-image img-udon"></div>
                 <div class="card-content">
                     <h3>Tacos de birria</h3>
                     <p>Taco de costilla de res con queso</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>1 kg de costilla de res</li>
+                            <li>Chiles guajillo, ancho y pasilla</li>
+                            <li>Queso Oaxaca o mozzarella</li>
+                            <li>Tortillas de maíz y cilantro</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Cocinar la carne a fuego lento con las especias y chiles hasta deshacerse.</li>
+                            <li>Desmechar la carne. Sumergir la tortilla en la grasa del caldo.</li>
+                            <li>Llevar al sartén, agregar queso, carne, doblar y dorar. Servir con consomé.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="fuerte">
                 <div class="card-image img-ravioles"></div>
                 <div class="card-content">
                     <h3>Ravioli de queso y nueces</h3>
-                    <p>Ravioles</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Pasta rellena</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Masa de pasta fresca (harina y huevo)</li>
+                            <li>Queso ricotta, parmesano y nueces picadas</li>
+                            <li>Mantequilla y salvia fresca</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Extender la pasta, colocar bolitas de relleno de queso y sellar los ravioles.</li>
+                            <li>Hervir por 3 minutos. Bañar en una salsa de mantequilla derretida con salvia.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="fuerte">
                 <div class="card-image img-fideos"></div>
                 <div class="card-content">
                     <h3>Pad woon sen</h3>
-                    <p>Fideos</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Fideos de cristal tailandeses</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Fideos de cristal (frijol mungo)</li>
+                            <li>Huevo, pollo en tiras, col y zanahoria</li>
+                            <li>Salsa de ostras, soya y azúcar</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Hidratar los fideos. Hacer un revoltillo rápido con el huevo en un wok.</li>
+                            <li>Añadir el pollo, vegetales y fideos. Bañar con la salsa y saltear a fuego alto.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="fuerte">
                 <div class="card-image img-canasta"></div>
                 <div class="card-content">
                     <h3>Rollitos de tocino con pollo</h3>
                     <p>Canasta de tocino con pollo</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Pechugas de pollo aplanadas</li>
+                            <li>Tiras de tocino ahumado</li>
+                            <li>Queso derretible y espinacas para rellenar</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Rellenar el pollo con queso y espinaca y enrollar.</li>
+                            <li>Envolver el rollo de pollo con las tiras de tocino. Hornear a 200°C hasta que el tocino esté crujiente.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>  
+
             <div class="card" data-category="fuerte">
                 <div class="card-image img-cerdo"></div>
                 <div class="card-content">
-                    <h3>Cerdo agridulce </h3>
-                    <p>Cerdo agridulce</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <h3>Cerdo agridulce</h3>
+                    <p>Clásico asiático</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Trozos de cerdo empanizados y fritos</li>
+                            <li>Pimientos de colores y piña en cubos</li>
+                            <li>Kétchup, vinagre, azúcar y salsa de soya</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Mezclar vinagre, kétchup y azúcar para la salsa agridulce y espesar con maicena.</li>
+                            <li>Saltear vegetales, añadir el cerdo frito y bañar con la salsa brillante.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>  
@@ -206,100 +490,259 @@
                 <div class="card-image img-alfajores"></div>
                 <div class="card-content">
                     <h3>Alfajores</h3>
-                    <p>Alfajores</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Dulce sudamericano</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Maicena, harina, mantequilla y azúcar glass</li>
+                            <li>Dulce de leche repostero</li>
+                            <li>Coco rallado para los bordes</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Hornear las tapitas de masa de maicena hasta que estén apenas doradas.</li>
+                            <li>Rellenar dos tapas con abundante dulce de leche y rodar por el coco.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
-<div class="card" data-category="postre">
+
+            <div class="card" data-category="postre">
                 <div class="card-image img-tangulu"></div>
                 <div class="card-content">
                     <h3>Tanghulu</h3>
-                    <p>tangulu</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Brochetas de fruta caramelizada</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Fresas o uvas enteras lavadas y muy secas</li>
+                            <li>2 tazas de azúcar blanco</li>
+                            <li>1 taza de agua</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Insertar las frutas en palillos de brocheta.</li>
+                            <li>Hervir el agua con azúcar sin revolver hasta alcanzar 150°C (punto de caramelo duro).</li>
+                            <li>Sumergir las frutas rápidamente y dejar endurecer.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="postre">
                 <div class="card-image img-congee"></div>
                 <div class="card-content">
                     <h3>Cuca de banana com farofa</h3>
-                    <p>Es pan de cuca de banana con farofa...</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Pastel brasileño de plátano</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Masa de bizcocho básico (harina, huevos, leche, azúcar)</li>
+                            <li>Plátanos maduros en rodajas</li>
+                            <li>Para la farofa: Harina, mantequilla, azúcar y canela</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Verter la masa en el molde, cubrir con las rodajas de plátano.</li>
+                            <li>Hacer una mezcla arenosa con los ingredientes de la farofa y espolvorear encima. Hornear.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="postre">
                 <div class="card-image img-mochi"></div>
                 <div class="card-content">
                     <h3>Mochis</h3>
                     <p>Mochis de fresa y oreo</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Harina de arroz glutinoso dulce (Mochiko)</li>
+                            <li>Agua y azúcar</li>
+                            <li>Relleno: Helado de fresa y galleta Oreo triturada</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Cocinar la harina, agua y azúcar en el microondas tapado, removiendo por intervalos.</li>
+                            <li>Estirar la masa elástica con fécula de maíz. Cortar círculos y envolver bolas de helado. Congelar.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="postre">
                 <div class="card-image img-mango"></div>
                 <div class="card-content">
-                    <h3>Miel de mango verde con helado de vainilla</h3>
-                    <p>Mango</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <h3>Miel de mango verde</h3>
+                    <p>Con helado de vainilla</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Mangos verdes o pinto cortados en tajadas</li>
+                            <li>Tapa de dulce (panela) o azúcar moreno</li>
+                            <li>Canela y clavos de olor</li>
+                            <li>Helado de vainilla</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Hervir el mango con el dulce y especias hasta que se forme un almíbar espeso.</li>
+                            <li>Servir el mango tibio coronado con una bola de helado de vainilla.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="postre">
                 <div class="card-image img-matcha"></div>
                 <div class="card-content">
-                    <h3>Bebida fresa y matcha, y Melon soda</h3>
-                    <p>Matcha con fresa</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <h3>Bebida fresa y matcha</h3>
+                    <p>Y Melon soda</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Puré de fresas frescas con un poco de azúcar</li>
+                            <li>Polvo de té matcha de grado culinario</li>
+                            <li>Leche (entera o vegetal) y hielo</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Colocar el puré de fresa en el fondo del vaso con hielo.</li>
+                            <li>Verter la leche suavemente.</li>
+                            <li>Disolver el matcha en agua caliente y verter arriba para crear las 3 capas de color.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="postre">
                 <div class="card-image img-chesecake"></div>
                 <div class="card-content">
                     <h3>Cheesecake de caramelo salado</h3>
-                    <p>Chesecake de caramelo</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Pastel de queso</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Base de galleta María y mantequilla</li>
+                            <li>Queso crema, huevos, crema ácida</li>
+                            <li>Salsa de caramelo y sal en escamas</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Hornear el relleno de queso sobre la base a baño maría por 1 hora.</li>
+                            <li>Enfriar completamente, bañar con salsa de caramelo y espolvorear toques de sal gruesa.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="postre">
                 <div class="card-image img-cannoli"></div>
                 <div class="card-content">
                     <h3>Cannoli</h3>
-                    <p>Cannoli</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Postre italiano</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Masa fina frita en forma de tubo</li>
+                            <li>Queso ricotta dulce y bien escurrido</li>
+                            <li>Chispas de chocolate y pistachos triturados</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Hacer los tubos de masa y freírlos hasta estar crujientes.</li>
+                            <li>Rellenar con la mezcla de ricotta justo antes de servir y decorar los extremos con chocolate.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="postre">
                 <div class="card-image img-baklava"></div>
                 <div class="card-content">
                     <h3>Baklava modificado</h3>
-                    <p>Baklava modificado</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Postre de Medio Oriente</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Hojas de masa filo</li>
+                            <li>Nueces, pistachos y almendras trituradas</li>
+                            <li>Mantequilla clarificada y almíbar de miel y limón</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Pincelar capas de masa filo con mantequilla, intercalando con las nueces picadas.</li>
+                            <li>Cortar en rombos, hornear y bañar con el almíbar de miel frío apenas salga del horno.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="postre">
                 <div class="card-image img-sandia"></div>
                 <div class="card-content">
-                    <h3>Batido de sandía con leche condensada</h3>
-                    <p>Batido de sandía con leche condensada</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <h3>Batido de sandía</h3>
+                    <p>Con leche condensada</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Sandía fresca sin semillas y congelada en cubos</li>
+                            <li>Leche condensada al gusto</li>
+                            <li>Hielo triturado</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Licuar los cubos de sandía congelada con un poco de hielo.</li>
+                            <li>Endulzar con la leche condensada hasta lograr textura frappé.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+
             <div class="card" data-category="postre">
                 <div class="card-image img-mousse"></div>
                 <div class="card-content">
                     <h3>Mousse de ajo negro</h3>
-                    <p>Mousse de ajo negro</p>
-                    <a href="#" class="btn">View Recipe</a>
+                    <p>Chocolate con toque umami</p>
+                    <a href="#" class="btn view-recipe-btn">View Recipe</a>
+                    <div class="recipe-details" style="display: none;">
+                        <h4>Ingredientes</h4>
+                        <ul>
+                            <li>Chocolate oscuro 70%</li>
+                            <li>Crema para batir (nata)</li>
+                            <li>Pasta de ajo negro (sabor caramelizado y profundo)</li>
+                        </ul>
+                        <h4>Preparación</h4>
+                        <ol>
+                            <li>Derretir el chocolate e incorporar suavemente la pasta de ajo negro.</li>
+                            <li>Montar la crema y envolver con el chocolate de forma aireada. Refrigerar antes de servir.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="timeline-section">
-        <div class="section-header">
-            <h2>Eventos Pasados y Futuros</h2>
-            <p>Sofi pon info aqui</p>
-            <div class="divider"></div>
+    <div id="recipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle">Título de la receta</h2>
+            <div id="modalBody" class="modal-body">
+                </div>
         </div>
+    </div>
 
+<<<<<<< HEAD
         <div class="timeline">
             <div class="timeline-item right">
                 <div class="timeline-content">
@@ -451,21 +894,24 @@
     </footer>
 
 <script>
+=======
+    <script>
+>>>>>>> c2fe19d (popup)
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- LÓGICA DE BÚSQUEDA Y FILTROS ---
             const searchInput = document.getElementById('searchInput');
             const filterBtns = document.querySelectorAll('.filter-btn');
             const cards = document.querySelectorAll('.recipes-container .card');
-            
-            // Para ocultar los títulos si no hay recetas
             const grids = document.querySelectorAll('.recipes-container .grid');
             const categoryTitles = document.querySelectorAll('.recipes-container .category-title');
-
             let currentCategory = 'all';
 
             function filterRecipes() {
+                if(!searchInput) return; 
+
                 const term = searchInput.value.toLowerCase().trim();
 
-                // 1. Filtrar las tarjetas
                 cards.forEach(card => {
                     const title = card.querySelector('h3').textContent.toLowerCase();
                     const description = card.querySelector('p').textContent.toLowerCase();
@@ -481,36 +927,73 @@
                     }
                 });
 
-                // 2. Ocultar los <h2> vacíos
                 grids.forEach((grid, index) => {
-                    // Cuentar cuántas tarjetas están visibles en este grid específico
                     const visibleCards = Array.from(grid.querySelectorAll('.card')).filter(card => card.style.display !== 'none');
-                    
                     if (visibleCards.length === 0) {
                         grid.style.display = 'none';
-                        categoryTitles[index].style.display = 'none';
+                        if(categoryTitles[index]) categoryTitles[index].style.display = 'none';
                     } else {
-                        grid.style.display = 'grid'; // Restaura el display flex/grid original
-                        categoryTitles[index].style.display = '';
+                        grid.style.display = 'grid'; 
+                        if(categoryTitles[index]) categoryTitles[index].style.display = '';
                     }
                 });
             }
 
-            // Escuchar cuando se escribe en la barra
-            searchInput.addEventListener('input', filterRecipes);
+            if(searchInput) {
+                searchInput.addEventListener('input', filterRecipes);
+            }
 
-            // Escuchar clics en los botones de categoría
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // Remover clase active de todos los botones
                     filterBtns.forEach(b => b.classList.remove('active'));
-                    // Agregar clase active al botón seleccionado
                     btn.classList.add('active');
-                    
-                    // Actualizar el filtro actual y ejecutar la función
                     currentCategory = btn.getAttribute('data-filter');
                     filterRecipes();
                 });
+            });
+
+            // --- LÓGICA DEL POP-UP ---
+            const modal = document.getElementById('recipeModal');
+            const closeModalBtn = document.querySelector('.close-modal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            const viewBtns = document.querySelectorAll('.card .btn');
+
+            viewBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    
+                    const card = btn.closest('.card');
+                    const title = card.querySelector('h3').textContent;
+                    const recipeDetails = card.querySelector('.recipe-details');
+                    
+                    modalTitle.textContent = title;
+                    
+                    if(recipeDetails) {
+                        modalBody.innerHTML = recipeDetails.innerHTML;
+                    } else {
+                        modalBody.innerHTML = '<p>La receta de <strong>' + title + '</strong> es un secreto de estado. (Aún no ha sido agregada).</p>';
+                    }
+                    
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden'; 
+                });
+            });
+
+            function closeModal() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; 
+            }
+
+            if(closeModalBtn) {
+                closeModalBtn.addEventListener('click', closeModal);
+            }
+
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
             });
         });
     </script>
