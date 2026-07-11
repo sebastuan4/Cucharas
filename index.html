@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,10 +21,20 @@
         <p>Cada Cuchara suele ser una sorpresa donde se eligen ingredientes con tematica por paises o de forma aleatoria, cuando nos reunimos descubrimos las recetas que cada uno hizo, este sera un recopilatorio de esas recetas.</p>
     </section>
 
+    <<section class="search-section">
+        <input type="text" id="searchInput" placeholder="Buscar por receta, ingrediente o palabra clave...">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="entrada">Entradas</button>
+            <button class="filter-btn" data-filter="fuerte">Plato Fuerte</button>
+            <button class="filter-btn" data-filter="postre">Postres</button>
+        </div>
+    </section>
+
     <section class="recipes-container">
-        <h2 class="philosophy">Entradas</h2>
+        <h2 class="philosophy category-title">Entradas</h2>
         <div class="grid">
-            <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-capresse"></div>
                 <div class="card-content">
                     <h3>Capresse</h3>
@@ -32,9 +42,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-
-            <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-scoby"></div>
                 <div class="card-content">
                     <h3>Montaditos</h3>
@@ -42,8 +50,7 @@
                     <a href="#" class="btn">View Technique</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-dip"></div>
                 <div class="card-content">
                     <h3>Dip de hongos con tocineta</h3>
@@ -51,8 +58,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-dip2"></div>
                 <div class="card-content">
                     <h3>Dip de quesos</h3>
@@ -60,8 +66,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-focaccia"></div>
                 <div class="card-content">
                     <h3>Focaccia de varios sabores</h3>
@@ -69,8 +74,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-papa"></div>
                 <div class="card-content">
                     <h3>Papa asada rellena </h3>
@@ -78,8 +82,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-pasta"></div>
                 <div class="card-content">
                     <h3>Trenette al pesto</h3>
@@ -87,8 +90,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-                        <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-naan"></div>
                 <div class="card-content">
                     <h3>Naan Con Butter Chicken Curry</h3>
@@ -96,8 +98,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-tacochino"></div>
                 <div class="card-content">
                     <h3>Tacos chino</h3>
@@ -105,8 +106,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-Kolokithokeftedes"></div>
                 <div class="card-content">
                     <h3>Kolokithokeftedes</h3>
@@ -114,8 +114,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-sopa"></div>
                 <div class="card-content">
                     <h3>Sopa de cebolla francesa</h3>
@@ -123,8 +122,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-PanSLevadura"></div>
                 <div class="card-content">
                     <h3>Pan de romero sin levadura</h3>
@@ -132,8 +130,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-rollo"></div>
                 <div class="card-content">
                     <h3>Rollitos Primavera</h3>
@@ -141,8 +138,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="entrada">
                 <div class="card-image img-focaccia2"></div>
                 <div class="card-content">
                     <h3>Focaccia de albahaca y dip de queso crema</h3>
@@ -150,11 +146,11 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
         </div>
-        <h2 class="philosophy">Plato Fuerte</h2>
+        
+        <h2 class="philosophy category-title">Plato Fuerte</h2>
         <div class="grid">
-            <div class="card">
+            <div class="card" data-category="fuerte">
                 <div class="card-image img-risotto"></div>
                 <div class="card-content">
                     <h3>Risotto con trufa y parmesano</h3>
@@ -162,8 +158,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-            
-            <div class="card">
+            <div class="card" data-category="fuerte">
                 <div class="card-image img-udon"></div>
                 <div class="card-content">
                     <h3>Tacos de birria</h3>
@@ -171,8 +166,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="fuerte">
                 <div class="card-image img-ravioles"></div>
                 <div class="card-content">
                     <h3>Ravioli de queso y nueces</h3>
@@ -180,8 +174,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="fuerte">
                 <div class="card-image img-fideos"></div>
                 <div class="card-content">
                     <h3>Pad woon sen</h3>
@@ -189,8 +182,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="fuerte">
                 <div class="card-image img-canasta"></div>
                 <div class="card-content">
                     <h3>Rollitos de tocino con pollo</h3>
@@ -198,8 +190,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>  
-
-            <div class="card">
+            <div class="card" data-category="fuerte">
                 <div class="card-image img-cerdo"></div>
                 <div class="card-content">
                     <h3>Cerdo agridulce </h3>
@@ -207,13 +198,11 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
         </div>  
 
-        <h2 class="philosophy" >Postre</h2>
-
+        <h2 class="philosophy category-title">Postre</h2>
         <div class="grid">
-            <div class="card">
+            <div class="card" data-category="postre">
                 <div class="card-image img-alfajores"></div>
                 <div class="card-content">
                     <h3>Alfajores</h3>
@@ -221,8 +210,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+<div class="card" data-category="postre">
                 <div class="card-image img-tangulu"></div>
                 <div class="card-content">
                     <h3>Tanghulu</h3>
@@ -230,8 +218,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="postre">
                 <div class="card-image img-congee"></div>
                 <div class="card-content">
                     <h3>Cuca de banana com farofa</h3>
@@ -239,8 +226,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-   
-            <div class="card">
+            <div class="card" data-category="postre">
                 <div class="card-image img-mochi"></div>
                 <div class="card-content">
                     <h3>Mochis</h3>
@@ -248,8 +234,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="postre">
                 <div class="card-image img-mango"></div>
                 <div class="card-content">
                     <h3>Miel de mango verde con helado de vainilla</h3>
@@ -257,8 +242,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="postre">
                 <div class="card-image img-matcha"></div>
                 <div class="card-content">
                     <h3>Bebida fresa y matcha, y Melon soda</h3>
@@ -266,8 +250,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="postre">
                 <div class="card-image img-chesecake"></div>
                 <div class="card-content">
                     <h3>Cheesecake de caramelo salado</h3>
@@ -275,8 +258,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="postre">
                 <div class="card-image img-cannoli"></div>
                 <div class="card-content">
                     <h3>Cannoli</h3>
@@ -284,8 +266,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="postre">
                 <div class="card-image img-baklava"></div>
                 <div class="card-content">
                     <h3>Baklava modificado</h3>
@@ -293,8 +274,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="postre">
                 <div class="card-image img-sandia"></div>
                 <div class="card-content">
                     <h3>Batido de sandía con leche condensada</h3>
@@ -302,8 +282,7 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
-            <div class="card">
+            <div class="card" data-category="postre">
                 <div class="card-image img-mousse"></div>
                 <div class="card-content">
                     <h3>Mousse de ajo negro</h3>
@@ -311,7 +290,6 @@
                     <a href="#" class="btn">View Recipe</a>
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -323,15 +301,14 @@
         </div>
 
         <div class="timeline">
-            <div class="timeline-item left">
+            <div class="timeline-item right">
                 <div class="timeline-content">
                     <span class="event-date">Enero 26, 2026</span>
                     <h3>Creacion de las cucharas</h3>
                     <p>Sofi pon info aqui</p>
                 </div>
-        </div>
+            </div>
     
-        <div class="timeline">
             <div class="timeline-item left">
                 <div class="timeline-content">
                     <span class="event-date">Febrero 2, 2026</span>
@@ -389,6 +366,7 @@
             <div class="divider"></div>
         </div>
 
+        <div class="team-grid">
             <div class="team-member">
                 <div class="member-image-wrapper">
                     <img src="Diana.png" alt="Elena Rostova">
@@ -400,7 +378,6 @@
                 </div>
             </div>
 
-                    <div class="team-grid">
             <div class="team-member">
                 <div class="member-image-wrapper">
                     <img src="Diego.png" alt="Marcus Sterling">
@@ -433,8 +410,6 @@
                     <p>Mariela busca cocinar con la mayor precisión cultural posible para brindar una experiencia gastronómica auténtica. Le apasiona la comunidad y el conectar por medio de la comida.</p>
                 </div>
             </div>
-
-
 
             <div class="team-member">
                 <div class="member-image-wrapper">
@@ -475,5 +450,69 @@
         <p>&copy; Las Reuniones de las cucharas es un evento privado, solo se puede entrar por invitacion.</p>
     </footer>
 
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('searchInput');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const cards = document.querySelectorAll('.recipes-container .card');
+            
+            // Para ocultar los títulos si no hay recetas
+            const grids = document.querySelectorAll('.recipes-container .grid');
+            const categoryTitles = document.querySelectorAll('.recipes-container .category-title');
+
+            let currentCategory = 'all';
+
+            function filterRecipes() {
+                const term = searchInput.value.toLowerCase().trim();
+
+                // 1. Filtrar las tarjetas
+                cards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    const category = card.getAttribute('data-category');
+
+                    const matchesText = title.includes(term) || description.includes(term);
+                    const matchesCategory = currentCategory === 'all' || category === currentCategory;
+
+                    if (matchesText && matchesCategory) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // 2. Ocultar los <h2> vacíos
+                grids.forEach((grid, index) => {
+                    // Cuentar cuántas tarjetas están visibles en este grid específico
+                    const visibleCards = Array.from(grid.querySelectorAll('.card')).filter(card => card.style.display !== 'none');
+                    
+                    if (visibleCards.length === 0) {
+                        grid.style.display = 'none';
+                        categoryTitles[index].style.display = 'none';
+                    } else {
+                        grid.style.display = 'grid'; // Restaura el display flex/grid original
+                        categoryTitles[index].style.display = '';
+                    }
+                });
+            }
+
+            // Escuchar cuando se escribe en la barra
+            searchInput.addEventListener('input', filterRecipes);
+
+            // Escuchar clics en los botones de categoría
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remover clase active de todos los botones
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Agregar clase active al botón seleccionado
+                    btn.classList.add('active');
+                    
+                    // Actualizar el filtro actual y ejecutar la función
+                    currentCategory = btn.getAttribute('data-filter');
+                    filterRecipes();
+                });
+            });
+        });
+    </script>
 </body>
 </html>
