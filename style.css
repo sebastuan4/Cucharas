@@ -157,7 +157,7 @@ h1, h2, h3 {
 .img-matcha { background-image: url('Images/Matcha.png'); }
 .img-capresse{ background-image: url('Images/Caprese.png'); }
 .img-alfajores { background-image: url('Images/Alfajores.png'); }
-
+.img-Kolokithokeftedes { background-image: url('Images/Kolokithokeftedes.png'); }
 
 .card-content {
     padding: 2rem;
@@ -194,6 +194,133 @@ h1, h2, h3 {
 .btn:hover {
     border-bottom: 1px solid var(--accent-gold);
 }
+
+
+
+/* --- Timeline Section --- */
+.timeline-section {
+    padding: 2rem 5% 6rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 3rem auto 0;
+}
+
+/* The central vertical gold line */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background-color: var(--accent-gold);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Individual Event Containers */
+.timeline-item {
+    padding: 15px 45px;
+    position: relative;
+    width: 50%;
+}
+
+.timeline-item.left {
+    left: 0;
+}
+
+.timeline-item.right {
+    left: 50%;
+}
+
+/* The circular markers on the line */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: var(--light-bg);
+    border: 4px solid var(--accent-gold);
+    border-radius: 50%;
+    top: 30px; /* Aligns dot with the top of the card */
+    z-index: 1;
+}
+
+.timeline-item.left::after {
+    right: -10px;
+}
+
+.timeline-item.right::after {
+    left: -10px;
+}
+
+/* The Event Content Box */
+.timeline-content {
+    padding: 2.5rem;
+    background-color: #fff;
+    border-radius: 8px; /* Slight rounding for an elegant look */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.event-date {
+    display: inline-block;
+    color: var(--accent-gold);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.8rem;
+}
+
+.timeline-content h3 {
+    font-size: 1.6rem;
+    color: var(--dark-bg);
+    margin-bottom: 1rem;
+}
+
+.timeline-content p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* --- Mobile Responsiveness for Timeline --- */
+@media screen and (max-width: 768px) {
+    .timeline::after {
+        left: 20px; /* Pushes the main line to the left edge */
+    }
+    
+    .timeline-item {
+        width: 100%;
+        padding-left: 60px; /* Makes room for the line on the left */
+        padding-right: 0;
+    }
+    
+    .timeline-item.right {
+        left: 0; /* Aligns the right-sided items back to the left */
+    }
+
+    /* Force all circular markers to sit on the newly positioned left line */
+    .timeline-item.left::after, 
+    .timeline-item.right::after {
+        left: 10px; 
+    }
+    
+    .timeline-content {
+        padding: 1.5rem;
+    }
+}
+
 
 /* --- Team Section --- */
 .team-section {
