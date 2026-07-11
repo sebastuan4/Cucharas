@@ -158,6 +158,13 @@ h1, h2, h3 {
 .img-capresse{ background-image: url('Images/Caprese.png'); }
 .img-alfajores { background-image: url('Images/Alfajores.png'); }
 .img-Kolokithokeftedes { background-image: url('Images/Kolokithokeftedes.png'); }
+.img-cannoli { background-image: url('Images/cannoli.png'); }
+.img-baklava { background-image: url('Images/Baklava.png'); }
+.img-sandia { background-image: url('Images/sandia.png'); }
+.img-cerdo { background-image: url('Images/cerdo.png'); }
+.img-mousse { background-image: url('Images/mousse.png'); }
+
+
 
 .card-content {
     padding: 2rem;
