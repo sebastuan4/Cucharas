@@ -147,6 +147,11 @@ h1, h2, h3 {
 .img-rollo { background-image: url('Images/SpringRoll.png'); }
 .img-focaccia2 { background-image: url('Images/Focaccia2.png'); }
 .img-chesecake { background-image: url('Images/Chesecake.png'); }
+.img-canasta { background-image: url('Images/Canasta.png'); }
+.img-naan { background-image: url('Images/naan.png'); }
+.img-sopa { background-image: url('Images/Sopa.png'); }
+.img-tacochino { background-image: url('Images/TacoChino.png'); }
+.img-alfajores { background-image: url('Images/Alfajores.png'); }
 
 
 .card-content {
