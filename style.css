@@ -136,6 +136,13 @@ h1, h2, h3 {
 .img-congee { background-image: url('Cuca.png'); }
 .img-scoby { background-image: url('tapas.png'); }
 .img-matcha { background-image: url('mochi.png'); }
+.img-focaccia { background-image: url('Focaccia.png'); }
+.img-papa { background-image: url('papa.png'); }
+.img-pasta { background-image: url('Pasta.png'); }
+.img-risotto { background-image: url('Risotto.png'); }
+.img-ravioles { background-image: url('Ravioles.png'); }
+.img-tangulu { background-image: url('Tangulu.png'); }
+
 
 .card-content {
     padding: 2rem;
