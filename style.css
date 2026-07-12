@@ -228,6 +228,7 @@ h1, h2, h3 {
 .img-cerdo { background-image: url('Images/cerdo.png'); }
 .img-mousse { background-image: url('Images/mousse.png'); }
 .img-mochi { background-image: url('Images/mochi.png'); }
+.img-gravlax { background-image: url('Images/gravlax.png'); }
 
 /* --- Modal (Pop-up) para Recetas --- */
 .modal {
