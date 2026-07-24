@@ -229,6 +229,11 @@ h1, h2, h3 {
 .img-mousse { background-image: url('Images/mousse.png'); }
 .img-mochi { background-image: url('Images/mochi.png'); }
 .img-gravlax { background-image: url('Images/gravlax.png'); }
+.img-tangyuan { background-image: url('Images/DulceChino.png'); }
+.img-chesecakearandano { background-image: url('Images/ChesecakeArandano.png'); }
+.img-arepa { background-image: url('Images/Arepa.png'); }
+.img-sushi { background-image: url('Images/Sushi.png'); }
+.img-cremabrocoli { background-image: url('Images/CremadeBrocoli.png'); }
 
 /* --- Modal (Pop-up) para Recetas --- */
 .modal {
