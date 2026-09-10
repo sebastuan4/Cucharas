@@ -139,6 +139,17 @@ var recipes = [
   { id:'gravlax', name:'Gravlax', subtitle:'Salmon Curando', category:'entrada',
     groups:[{title:null, items:['Salmon','Sal y azucar','Eneldo']}],
     steps:['Mezclar la sal, la azucar y el eneldo, la cantidad de sal y azucar en conjunto debe pesar lo mismo que el salmon.','Guardar en la refri por 1 a 3 dias.'] },
+  { id:'massaman-curry', name:'Massaman Curry', subtitle:'Clásico Thailandes', category:'entrada',
+    groups:[{title:null, items:['Pasta de curry Rojo','Leche de coco','Salsa de Pescado','Camote']}],
+    steps:['To be defined'] },
+  { id:'hummus-chile', name:'Hummus de Chiledulce', subtitle:'Hummus con Zanahoria', category:'entrada',
+    groups:[{title:null, items:['Zanahoria','Chile Dulce']}],
+    steps:['To be defined'] },
+  { id:'empanadillas-pollo', name:'Empanadillas de pollo en salsa de naranja', subtitle:'', category:'entrada',
+    groups:[{title:null, items:['Harina','Pollo']}],
+    steps:['To be defined'] },
+
+
 
   { id:'risotto', name:'Risotto con trufa y parmesano', subtitle:'Arroz cremoso italiano', category:'fuerte',
     groups:[{title:null, items:['Arroz Arborio o Carnaroli','Caldo de pollo o vegetales muy caliente','Mantequilla, queso parmesano rallado','Aceite o pasta de trufa negra']}],
@@ -167,6 +178,15 @@ var recipes = [
   { id:'cerdo-agridulce', name:'Cerdo agridulce', subtitle:'Clásico asiático', category:'fuerte',
     groups:[{title:null, items:['Trozos de cerdo empanizados y fritos','Pimientos de colores y piña en cubos','Kétchup, vinagre, azúcar y salsa de soya']}],
     steps:['Mezclar vinagre, kétchup y azúcar para la salsa agridulce y espesar con maicena.','Saltear vegetales, añadir el cerdo frito y bañar con la salsa brillante.'] },
+  { id:'noqui-tocino', name:'Ñoqui con Tocino', subtitle:'Pasta', category:'fuerte',
+    groups:[{title:null, items:['']}],
+    steps:[''] },
+  { id:'arroz-sofi', name:'Arroz Estilo Asiatico', subtitle:'Asiatico', category:'fuerte',
+    groups:[{title:null, items:['']}],
+    steps:[''] },
+
+
+
 
   { id:'alfajores', name:'Alfajores', subtitle:'Dulce sudamericano', category:'postre',
     groups:[{title:null, items:['Maicena, harina, mantequilla y azúcar glass','Dulce de leche repostero','Coco rallado para los bordes']}],
@@ -207,7 +227,13 @@ var recipes = [
     steps:['Licuar los cubos de sandía congelada con un poco de hielo.','Endulzar con la leche condensada hasta lograr textura frappé.'] },
   { id:'mousse-ajo-negro', name:'Mousse de ajo negro', subtitle:'Chocolate con toque umami', category:'postre',
     groups:[{title:null, items:['Chocolate oscuro 70%','Crema para batir (nata)','Pasta de ajo negro (sabor caramelizado y profundo)']}],
-    steps:['Derretir el chocolate e incorporar suavemente la pasta de ajo negro.','Montar la crema y envolver con el chocolate de forma aireada. Refrigerar antes de servir.'] }
+    steps:['Derretir el chocolate e incorporar suavemente la pasta de ajo negro.','Montar la crema y envolver con el chocolate de forma aireada. Refrigerar antes de servir.'] },
+  { id:'Quesillo', name:'Quesillo', subtitle:'Venezolano', category:'postre',
+    groups:[{title:null, items:['']}],
+    steps:[''] },
+  { id:'tiramichesecake', name:'Tiramichesecake', subtitle:'Creacion propia', category:'postre',
+    groups:[{title:null, items:['']}],
+    steps:[''] }
 ];
 
 var categoryOrder = ['entrada','fuerte','postre'];
@@ -220,7 +246,8 @@ var timelineData = [
   { date:'Abril 11,2026', title:'Terceras cucharas (Cumple de Nico)', note:'Sofi pon info aqui' },
   { date:'Mayo 15,2026', title:'Cuartas cucharas', note:'Sofi pon info aqui' },
   { date:'Junio 29, 2026', title:'Quintas cucharas', note:'Sofi pon info aqui' },
-  { date:'Julio 22,2026', title:'Cucharaciones (Por venir)', note:'Sofi pon info aqui' }
+  { date:'Julio 22,2026', title:'Cucharaciones', note:'Sofi pon info aqui' },
+  { date:'Agosto 23,2026', title:'Celebracion a Kevin', note:'Sofi pon info aqui' }
 ];
 
 var team = [
@@ -237,7 +264,9 @@ var team = [
   { name:'Sebastian', role:'Miguel Ángel', img:'https://lascucharas.online/Migue.png',
     bio:'Su nombre cambió después de ser adoptado por las cucharas, su única preocupación ahora es preparar algo rico (salmón) y poder disfrutar.' },
   { name:'Sofia', role:'Máster Cuddlerr', img:'https://lascucharas.online/Sofi.png',
-    bio:'Sofía se especializa en sus amplias habilidades de improvisación y un motto de "mis ancestros me dirán cuándo parar de sazonar" que alimentan su instinto y confianza para traer platos que nunca ha probado antes.' }
+    bio:'Sofía se especializa en sus amplias habilidades de improvisación y un motto de "mis ancestros me dirán cuándo parar de sazonar" que alimentan su instinto y confianza para traer platos que nunca ha probado antes.' },
+  { name:'Kevin', role:'Invitado/Futura posible Cuchara', img:'https://lascucharas.online/Kevin.png',
+    bio:'Invitado por el cumple, el estimadisimo Kevin probo la comida de las cucharas, se espera pueda seguir brindando mas amor y comida a las proximas reuniones.' }
 ];
 
 /* ============== STATE ============== */
