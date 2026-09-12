@@ -1,480 +1,558 @@
-/* =========================================================
-   Las Cucharas — minimalist editorial theme
-   Drop-in replacement for style.css.
-   No changes needed to index.html or the inline script.
-   ========================================================= */
 
-:root{
-  --bg: #FFFFFF;
-  --ink: #1A1A1A;
-  --gray: #6B6B6B;
-  --line: #E4E1DC;
-  --accent: #A63D2F;
-  --accent-tint: #F5E9E6;
-  --radius: 3px;
-}
 
-*{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Las Cucharas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-body{
-  margin:0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: 'Work Sans', sans-serif;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-h1,h2,h3{ font-family:'Fraunces', serif; margin:0; font-weight:500; }
-a{ color: inherit; }
-img{ max-width:100%; display:block; }
-::selection{ background: var(--accent-tint); color: var(--accent); }
+<header class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div id="utensil-layer"></div>
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Reuniones privadas de sabor</span>
+    <h1 id="heroTitle"></h1>
+    <p class="tagline">Por un dia lleno de sabor, musica y cariño</p>
+    <div class="hero-group">
+      <img src="https://lascucharas.online/Group.jpg" alt="El grupo de Las Cucharas" loading="lazy">
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"></div>
+</header>
 
-@media (prefers-reduced-motion: reduce){
-  *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
-}
+<section class="philosophy reveal">
+  <h2>La Filosofia</h2>
+  <p>Cada Cuchara suele ser una sorpresa donde se eligen ingredientes con tematica por paises o de forma aleatoria, cuando nos reunimos descubrimos las recetas que cada uno hizo, este sera un recopilatorio de esas recetas.</p>
+</section>
 
-.wrap{ max-width: 980px; margin: 0 auto; padding: 0 28px; }
+<div class="controls">
+  <div class="controls-inner">
+    <input type="text" id="searchInput" placeholder="Buscar por receta, ingrediente o palabra clave...">
+    <div class="filter-buttons" id="filterButtons">
+      <span class="filter-indicator" id="filterIndicator"></span>
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="entrada">Entradas</button>
+      <button class="filter-btn" data-filter="fuerte">Plato Fuerte</button>
+      <button class="filter-btn" data-filter="postre">Postres</button>
+    </div>
+  </div>
+</div>
 
-/* ---------------- reveal-on-scroll (fade only) ---------------- */
-.reveal{ opacity:0; transition: opacity .8s ease; }
-.reveal.is-visible{ opacity:1; }
+<section class="recipes-container wrap">
+  <div id="recipesRoot"></div>
+</section>
 
-/* ================= HERO ================= */
-.hero{
-  position: relative;
-  min-height: 80vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding: 70px 24px 50px;
-  background: var(--bg);
-  overflow:hidden;
-}
+<div id="recipeModal" class="modal">
+  <div class="modal-content">
+    <button class="close-modal" id="closeModal" aria-label="Cerrar">&times;</button>
+    <div class="modal-img" id="modalImgWrap"></div>
+    <div class="modal-text">
+      <h2 id="modalTitle">Título de la receta</h2>
+      <p id="modalSubtitle"></p>
+      <div id="modalBody" class="modal-body"></div>
+    </div>
+  </div>
+</div>
 
-/* decorative gradient blobs and floating utensils removed for a calmer, minimalist hero */
-.blob, #utensil-layer{ display:none; }
+<section class="timeline-section wrap">
+  <h2 class="section-title reveal">Nuestras Cucharas</h2>
+  <div class="timeline" id="timelineRoot"></div>
+</section>
 
-.hero-inner{ position:relative; z-index:1; max-width: 640px; }
+<section class="team-section">
+  <div class="section-header reveal">
+    <h2>Meet the Culinary Team</h2>
+    <p>The visionaries and artisans behind every dish we serve.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="team-grid" id="teamRoot"></div>
+</section>
 
-.hero-eyebrow{
-  display:inline-block;
-  font-family: 'Work Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 22px;
-}
+<footer>
+  © Las Reuniones de las cucharas es un evento privado, solo se puede entrar por invitacion.
+</footer>
 
-.hero h1{
-  font-size: clamp(48px, 8vw, 84px);
-  letter-spacing: -0.01em;
-  line-height: 1;
-  color: var(--ink);
-  overflow: hidden;
-}
-.hero h1 span{
-  display:inline-block;
-  opacity: 0;
-  transform: translateY(100%);
-  animation: rise .8s cubic-bezier(.2,.8,.2,1) forwards;
-}
-@keyframes rise{ to{ opacity:1; transform:none; } }
+<script>
+(function(){
+"use strict";
 
-.hero .tagline{
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 19px;
-  color: var(--gray);
-  margin: 16px 0 0;
-}
+/* ============== DATA ============== */
 
-.hero-group{
-  margin: 40px auto 0;
-  width: 190px;
-  height: 190px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 1px solid var(--line);
-}
-.hero-group img{ width:100%; height:100%; object-fit:cover; }
+var categoryIcon = { entrada:'🥗', fuerte:'🍲', postre:'🍰' };
 
-.scroll-cue{
-  position:absolute;
-  bottom: 26px; left:50%;
-  transform: translateX(-50%);
-  width: 1px; height: 34px;
-  background: var(--line);
-}
-.scroll-cue::after{
-  content:"";
-  position:absolute;
-  top:0; left:50%;
-  width:5px; height:5px;
-  border-radius:50%;
-  background: var(--accent);
-  transform: translateX(-50%);
-  animation: cue 2s ease-in-out infinite;
-}
-@keyframes cue{
-  0%{ top:0; opacity:1; }
-  80%{ top:28px; opacity:0; }
-  100%{ top:28px; opacity:0; }
-}
+var recipes = [
+  { id:'capresse', name:'Capresse', subtitle:'Ensalada fresca italiana', category:'entrada',
+    groups:[{title:null, items:['Tomates frescos rebanados','Queso mozzarella en rodajas','Hojas de albahaca fresca','Aceite de oliva extra virgen y reducción de vinagre balsámico']}],
+    steps:['Intercalar una rodaja de tomate, una de queso y una hoja de albahaca.','Aderezar con sal, pimienta, aceite de oliva y un toque de balsámico.'] },
+  { id:'crema-brocoli', name:'Crema de brocoli', subtitle:'Crema de brocoli', category:'entrada',
+    groups:[{title:null, items:['Brócoli fresco cortado en floretes','Cebolla y ajo picados','Caldo de vegetales o de pollo','Crema de leche o leche entera','Mantequilla','Sal y pimienta al gusto']}],
+    steps:['Sofreír la cebolla y el ajo en mantequilla hasta que estén transparentes.','Agregar el brócoli y el caldo, y cocinar hasta que el brócoli esté tierno.','Licuar todo hasta obtener una crema suave e incorporar la crema de leche.','Sazonar con sal y pimienta y servir caliente.'] },
+  { id:'sushi', name:'Sushi', subtitle:'Sushi', category:'entrada',
+    groups:[{title:null, items:['Arroz para sushi','Vinagre de arroz, azúcar y sal','Hojas de alga nori','Relleno a elección (aguacate, pepino, salmón o atún)','Salsa de soya, wasabi y jengibre encurtido para acompañar']}],
+    steps:['Cocinar el arroz y mezclarlo con vinagre, azúcar y sal mientras aún está caliente; dejar enfriar.','Extender el arroz sobre la hoja de nori y colocar el relleno elegido en una línea al centro.','Enrollar firmemente con ayuda de una esterilla de bambú.','Cortar en piezas con un cuchillo húmedo y servir con soya, wasabi y jengibre.'] },
+  { id:'montaditos', name:'Montaditos', subtitle:'Tostada de pan arreglado con 3 sabores y una hermosa flor de carne', category:'entrada',
+    groups:[{title:null, items:['Rebanadas de pan baguette tostado','Prosciutto o jamón serrano','Queso crema y mermelada de higo']}],
+    steps:['Tostar el pan con un poco de aceite de oliva.','Untar el queso, añadir mermelada y armar una "flor" doblando el prosciutto en la cima.'] },
+  { id:'dip-hongos', name:'Dip de hongos con tocineta', subtitle:'Dip cremoso caliente', category:'entrada',
+    groups:[{title:null, items:['200g de champiñones picados','150g de tocineta crujiente','1 bloque de queso crema','Ajo y cebolla finamente picados']}],
+    steps:['Sofreír la tocineta, retirar y en esa misma grasa cocinar ajo, cebolla y hongos.','Mezclar con el queso crema hasta integrar. Servir caliente con tostadas.'] },
+  { id:'dip-quesos', name:'Dip de quesos', subtitle:'Mezcla fundida', category:'entrada',
+    groups:[{title:null, items:['Queso cheddar, mozzarella y parmesano rallados','Queso crema','Pizca de pimentón y ajo en polvo']}],
+    steps:['Mezclar todos los quesos en un recipiente apto para horno.','Hornear a 200°C hasta que dore y burbujee. Acompañar con nachos o pan.'] },
+  { id:'focaccia', name:'Focaccia de varios sabores', subtitle:'Pan plano italiano', category:'entrada',
+    groups:[{title:null, items:['500g de harina de trigo','Levadura fresca, agua y mucho aceite de oliva','Romero, sal gruesa, tomates cherry y aceitunas']}],
+    steps:['Amasar harina, agua y levadura. Dejar levar por 2 horas.','Extender en bandeja, hacer hoyos con los dedos, añadir aceite, sal e ingredientes. Hornear.'] },
+  { id:'papa-asada', name:'Papa asada rellena', subtitle:'Papa asada', category:'entrada',
+    groups:[{title:null, items:['Papas grandes para asar','Mantequilla, natilla (crema agria)','Queso rallado y cebollín']}],
+    steps:['Envolver las papas en aluminio y hornear a 200°C por 1 hora.','Abrir por el centro, hacer puré la pulpa y mezclar con mantequilla, queso y crema.'] },
+  { id:'trenette', name:'Trenette al pesto', subtitle:'Pasta', category:'entrada',
+    groups:[{title:null, items:['Pasta tipo Trenette o Linguine','Albahaca fresca, ajo, piñones (o nueces)','Parmesano y aceite de oliva']}],
+    steps:['Hacer el pesto procesando albahaca, ajo, nueces, queso y aceite.','Hervir la pasta, escurrir y mezclar fuera del fuego con el pesto.'] },
+  { id:'naan', name:'Naan Con Butter Chicken', subtitle:'Pan indio con curry', category:'entrada',
+    groups:[{title:null, items:['Para el Naan: Harina, yogurt, levadura.','Pollo marinado en especias (garam masala).','Salsa de tomate, crema y mantequilla.']}],
+    steps:['Cocinar los panes naan en un sartén muy caliente.','Guisar el pollo en la salsa cremosa de tomate y especias. Servir juntos para remojar.'] },
+  { id:'tacos-chino', name:'Tacos chino', subtitle:'Tacos estilo asiático', category:'entrada',
+    groups:[{title:null, items:['Hojas de masa wantán o repollo como base','Carne de cerdo molida sofrita con jengibre y ajo','Zanahoria rallada y salsa de soya']}],
+    steps:['Saltear la carne con las verduras y salsas asiáticas.','Servir sobre la base elegida y añadir maní triturado por encima.'] },
+  { id:'kolokithokeftedes', name:'Kolokithokeftedes', subtitle:'Croquetas griegas de calabacín', category:'entrada',
+    groups:[{title:null, items:['Calabacín (zucchini) rallado y escurrido','Queso feta, eneldo fresco y menta','Huevo y un poco de harina']}],
+    steps:['Mezclar todos los ingredientes hasta formar una masa manejable.','Formar bolitas, aplanar ligeramente y freír en aceite de oliva hasta dorar.'] },
+  { id:'sopa-cebolla', name:'Sopa de cebolla francesa', subtitle:'Sopa clásica', category:'entrada',
+    groups:[{title:null, items:['Cebollas en juliana caramelizadas','Caldo de res oscuro','Pan baguette y queso gruyere']}],
+    steps:['Caramelizar la cebolla a fuego muy lento por 40 mins.','Agregar el caldo. Servir en tazones, coronar con pan y queso, y gratinar al horno.'] },
+  { id:'pan-romero', name:'Pan de romero sin levadura', subtitle:'Pan rápido', category:'entrada',
+    groups:[{title:null, items:['Harina de trigo, polvo de hornear y sal','Agua y aceite de oliva','Romero fresco picado']}],
+    steps:['Mezclar secos, añadir agua y aceite hasta formar masa.','Aplanar en un sartén y cocinar vuelta y vuelta hasta que esté dorado y cocido.'] },
+  { id:'rollitos-primavera', name:'Rollitos Primavera', subtitle:'Rollitos frescos o fritos', category:'entrada',
+    groups:[{title:null, items:['Hojas de papel de arroz','Fideos de arroz cocidos','Zanahoria, pepino y camarones (opcional)']}],
+    steps:['Hidratar el papel de arroz en agua tibia por 10 segundos.','Rellenar con los vegetales, enrollar apretado y servir con salsa de maní.'] },
+  { id:'focaccia-albahaca', name:'Focaccia de albahaca y dip', subtitle:'Focaccia especial', category:'entrada',
+    groups:[{title:null, items:['Masa base de focaccia (harina, levadura, agua)','Albahaca fresca licuada con el aceite de la masa','Dip de queso crema al ajo']}],
+    steps:['Hornear la focaccia infundida de color verde por la albahaca.','Servir tibia acompañada del dip de queso crema para untar.'] },
+  { id:'gravlax', name:'Gravlax', subtitle:'Salmon Curando', category:'entrada',
+    groups:[{title:null, items:['Salmon','Sal y azucar','Eneldo']}],
+    steps:['Mezclar la sal, la azucar y el eneldo, la cantidad de sal y azucar en conjunto debe pesar lo mismo que el salmon.','Guardar en la refri por 1 a 3 dias.'] },
+  { id:'massaman-curry', name:'Massaman Curry', subtitle:'Clásico Thailandes', category:'entrada',
+    groups:[{title:null, items:['Pasta de curry Rojo','Leche de coco','Salsa de Pescado','Camote']}],
+    steps:['To be defined'] },
+  { id:'hummus-chile', name:'Hummus de Chiledulce', subtitle:'Hummus con Zanahoria', category:'entrada',
+    groups:[{title:null, items:['Zanahoria','Chile Dulce']}],
+    steps:['To be defined'] },
+  { id:'empanadillas-pollo', name:'Empanadillas de pollo en salsa de naranja', subtitle:'', category:'entrada',
+    groups:[{title:null, items:['Harina','Pollo']}],
+    steps:['To be defined'] },
 
-/* ---------------- philosophy ---------------- */
-.philosophy{
-  padding: 20px 28px 70px;
-  max-width: 640px;
-  margin: 0 auto;
-  text-align:center;
-}
-.philosophy h2{ font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
-.philosophy p{ font-family:'Fraunces', serif; font-style: italic; font-size: 19px; color: var(--ink); }
 
-/* ---------------- controls ---------------- */
-.controls{
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(255,255,255,0.94);
-  backdrop-filter: blur(6px);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 18px 24px;
-}
-.controls-inner{
-  max-width: 980px;
-  margin: 0 auto;
-  display:flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  align-items:center;
-  justify-content: space-between;
-}
 
-#searchInput{
-  flex: 1 1 220px;
-  min-width: 200px;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--line);
-  border-radius: 0;
-  padding: 6px 2px;
-  color: var(--ink);
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 15.5px;
-  outline: none;
-  transition: border-color .2s ease;
-}
-#searchInput::placeholder{ color: var(--gray); opacity: 0.8; }
-#searchInput:focus{ border-color: var(--accent); }
+  { id:'risotto', name:'Risotto con trufa y parmesano', subtitle:'Arroz cremoso italiano', category:'fuerte',
+    groups:[{title:null, items:['Arroz Arborio o Carnaroli','Caldo de pollo o vegetales muy caliente','Mantequilla, queso parmesano rallado','Aceite o pasta de trufa negra']}],
+    steps:['Tostar el arroz y agregar el caldo cucharón a cucharón sin dejar de remover.','Apagar el fuego, añadir mantequilla, queso y la trufa. Emulsionar vigorosamente.'] },
+  { id:'arepa', name:'Arepa', subtitle:'Arepa', category:'fuerte',
+    groups:[{title:null, items:['Harina de maíz precocida','Agua tibia','Sal','Aceite o mantequilla para cocinar','Relleno a elección (queso, carne mechada, aguacate)']}],
+    steps:['Mezclar la harina con agua tibia y sal hasta formar una masa suave sin grumos.','Formar bolitas y aplanarlas en discos de aproximadamente 1 cm de grosor.','Cocinar en un sartén o plancha caliente con un poco de aceite hasta dorar por ambos lados.','Terminar de cocinar al horno si es necesario, abrir y rellenar al gusto.'] },
+  { id:'birria', name:'Tacos de birria', subtitle:'Taco de costilla de res con queso', category:'fuerte',
+    groups:[
+      {title:'Adobo', items:['10 jitomates','1 cebolla','12 dientes de ajo','1 cucharada de pimienta gorda','1 cucharada de pimienta negra','1 cucharada de comino','1 cucharada de tomillo seco','1 cucharada de orégano seco','Media raja de canela','5 chiles anchos','8 chiles guajillos','3 hojas de laurel seco','2 cucharadas de vinagre blanco','1 litro de agua']},
+      {title:'Consomé', items:['4 litros de agua','Sal al gusto','2 kg de Costilla de res / short rib / Chambrete / Diezmillo con hueso']},
+      {title:'Tacos', items:['Queso mozzarella','Tortillas']},
+      {title:'Para servir', items:['Cilantro','Limón','Cebolla']}
+    ],
+    steps:['Mezclar todos los ingredientes del adobo y el consome y cocinar por 1h en olla de presion.','Apartar la grasa de arriba y sacar la carne y cortarla.','Poner la grasa del consome en el sarten y embarrar bien la tortilla, poner queso y la carne, poner cilantro limon y cebolla al final.'],
+    video: 'https://www.youtube.com/embed/g2F5RO6vNSs?si=g8uJR9s2cYAnA5t0' },
+  { id:'ravioli', name:'Ravioli de queso y nueces', subtitle:'Pasta rellena', category:'fuerte',
+    groups:[{title:null, items:['Masa de pasta fresca (harina y huevo)','Queso ricotta, parmesano y nueces picadas','Mantequilla y salvia fresca']}],
+    steps:['Extender la pasta, colocar bolitas de relleno de queso y sellar los ravioles.','Hervir por 3 minutos. Bañar en una salsa de mantequilla derretida con salvia.'] },
+  { id:'pad-woon-sen', name:'Pad woon sen', subtitle:'Fideos de cristal tailandeses', category:'fuerte',
+    groups:[{title:null, items:['Fideos de cristal (frijol mungo)','Huevo, pollo en tiras, col y zanahoria','Salsa de ostras, soya y azúcar']}],
+    steps:['Hidratar los fideos. Hacer un revoltillo rápido con el huevo en un wok.','Añadir el pollo, vegetales y fideos. Bañar con la salsa y saltear a fuego alto.'] },
+  { id:'rollitos-tocino', name:'Rollitos de tocino con pollo', subtitle:'Canasta de tocino con pollo', category:'fuerte',
+    groups:[{title:null, items:['Pechugas de pollo aplanadas','Tiras de tocino ahumado','Queso derretible y espinacas para rellenar']}],
+    steps:['Rellenar el pollo con queso y espinaca y enrollar.','Envolver el rollo de pollo con las tiras de tocino. Hornear a 200°C hasta que el tocino esté crujiente.'] },
+  { id:'cerdo-agridulce', name:'Cerdo agridulce', subtitle:'Clásico asiático', category:'fuerte',
+    groups:[{title:null, items:['Trozos de cerdo empanizados y fritos','Pimientos de colores y piña en cubos','Kétchup, vinagre, azúcar y salsa de soya']}],
+    steps:['Mezclar vinagre, kétchup y azúcar para la salsa agridulce y espesar con maicena.','Saltear vegetales, añadir el cerdo frito y bañar con la salsa brillante.'] },
+  { id:'noqui-tocino', name:'Ñoqui con Tocino', subtitle:'Pasta', category:'fuerte',
+    groups:[{title:null, items:['']}],
+    steps:[''] },
+  { id:'arroz-sofi', name:'Arroz Estilo Asiatico', subtitle:'Asiatico', category:'fuerte',
+    groups:[{title:null, items:['']}],
+    steps:[''] },
 
-.filter-buttons{
-  position: relative;
-  display:flex;
-  gap: 22px;
-  background: none;
-  border-radius: 0;
-  padding: 0;
-}
-.filter-btn{
-  position: relative;
-  z-index: 2;
-  border:none;
-  background: transparent;
-  color: var(--gray);
-  font-family: 'Work Sans', sans-serif;
-  font-size: 13.5px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  padding: 4px 0 8px;
-  border-radius: 0;
-  cursor: pointer;
-  transition: color .2s ease;
-}
-.filter-btn.active{ color: var(--ink); }
-.filter-indicator{
-  position:absolute;
-  bottom: 0; left: 0;
-  height: 2px;
-  background: var(--accent);
-  border-radius: 0;
-  z-index:1;
-  transition: transform .3s cubic-bezier(.65,0,.35,1), width .3s cubic-bezier(.65,0,.35,1);
-}
 
-/* ---------------- recipes ---------------- */
-.recipes-container{ padding: 50px 24px 30px; }
-.category-title{
-  font-size: 12.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin: 56px 0 22px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--line);
-}
-.category-title:first-of-type{ margin-top: 0; }
 
-.grid{
-  display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
-}
 
-.card{
-  background: var(--bg);
-  color: var(--ink);
-  border-radius: 0;
-  border: none;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform .2s ease;
-}
-.card:hover{ transform: translateY(-2px); }
+  { id:'alfajores', name:'Alfajores', subtitle:'Dulce sudamericano', category:'postre',
+    groups:[{title:null, items:['Maicena, harina, mantequilla y azúcar glass','Dulce de leche repostero','Coco rallado para los bordes']}],
+    steps:['Hornear las tapitas de masa de maicena hasta que estén apenas doradas.','Rellenar dos tapas con abundante dulce de leche y rodar por el coco.'] },
+  { id:'tang-yuan', name:'Tang Yuan', subtitle:'Tang Yuan', category:'postre',
+    groups:[{title:null, items:['Harina de arroz glutinoso','Agua tibia','Relleno de pasta de sésamo negro o maní dulce','Agua y azúcar de roca con jengibre para el almíbar']}],
+    steps:['Mezclar la harina de arroz glutinoso con agua tibia hasta formar una masa suave y elástica.','Formar bolitas pequeñas, rellenarlas con la pasta de sésamo o maní y sellar bien.','Hervir agua con jengibre y azúcar de roca para preparar el almíbar.','Cocinar las bolitas en agua hirviendo hasta que floten, pasarlas al almíbar caliente y servir.'] },
+  { id:'chesecake-arandano', name:'Chesecake', subtitle:'Chesecake Arandano', category:'postre',
+    groups:[{title:null, items:['100g de galleta','30g de mantequilla','90g de natilla','200g de queso crema','200g de crema dulce','75g de azucar','30g de leche','12g de gelatina','10g de jugo de limon','500g de arandanos']}],
+    steps:['Majar la galleta y mezclar con la mantequilla para la base.','Mezclar la natilla, el queso crema, 30g de azucar y leche con 6g de gelatina en polvo.','Mezclar con batidora la crema dulce fria con 15g de azucar hasta que espese y revolver con la mezcla anterior.','En el sarten cocinar arandanos con un poco de agua y el azucar, adicionar el resto de gelatina y vertir la mitad en la mezcla del chesecake.','Dejar el chesecake enfriar ya montado con la galleta triturada de base y luego poner la gelatina de arandano encima para terminar.'],
+    video: 'https://www.youtube.com/embed/2utgqRCAIr4?si=fKFTBWYCgA3hU-vm' },
+  { id:'tanghulu', name:'Tanghulu', subtitle:'Brochetas de fruta caramelizada', category:'postre',
+    groups:[{title:null, items:['Fresas o uvas enteras lavadas y muy secas','2 tazas de azúcar blanco','1 taza de agua']}],
+    steps:['Insertar las frutas en palillos de brocheta.','Hervir el agua con azúcar sin revolver hasta alcanzar 150°C (punto de caramelo duro).','Sumergir las frutas rápidamente y dejar endurecer.'] },
+  { id:'cuca-banana', name:'Cuca de banana com farofa', subtitle:'Pastel brasileño de plátano', category:'postre',
+    groups:[{title:null, items:['Masa de bizcocho básico (harina, huevos, leche, azúcar)','Plátanos maduros en rodajas','Para la farofa: Harina, mantequilla, azúcar y canela']}],
+    steps:['Verter la masa en el molde, cubrir con las rodajas de plátano.','Hacer una mezcla arenosa con los ingredientes de la farofa y espolvorear encima. Hornear.'] },
+  { id:'mochis', name:'Mochis', subtitle:'Mochis de fresa y oreo', category:'postre',
+    groups:[{title:null, items:['Harina de arroz glutinoso dulce (Mochiko)','Agua y azúcar','Relleno: Helado de fresa y galleta Oreo triturada']}],
+    steps:['Cocinar la harina, agua y azúcar en el microondas tapado, removiendo por intervalos.','Estirar la masa elástica con fécula de maíz. Cortar círculos y envolver bolas de helado. Congelar.'] },
+  { id:'miel-mango', name:'Miel de mango verde', subtitle:'Con helado de vainilla', category:'postre',
+    groups:[{title:null, items:['Mangos verdes o pinto cortados en tajadas','Tapa de dulce (panela) o azúcar moreno','Canela y clavos de olor','Helado de vainilla']}],
+    steps:['Hervir el mango con el dulce y especias hasta que se forme un almíbar espeso.','Servir el mango tibio coronado con una bola de helado de vainilla.'] },
+  { id:'fresa-matcha', name:'Bebida fresa y matcha', subtitle:'Y Melon soda', category:'postre',
+    groups:[{title:null, items:['Puré de fresas frescas con un poco de azúcar','Polvo de té matcha de grado culinario','Leche (entera o vegetal) y hielo']}],
+    steps:['Colocar el puré de fresa en el fondo del vaso con hielo.','Verter la leche suavemente.','Disolver el matcha en agua caliente y verter arriba para crear las 3 capas de color.'] },
+  { id:'cheesecake-caramelo', name:'Cheesecake de caramelo salado', subtitle:'Pastel de queso', category:'postre',
+    groups:[{title:null, items:['Base de galleta María y mantequilla','Queso crema, huevos, crema ácida','Salsa de caramelo y sal en escamas']}],
+    steps:['Hornear el relleno de queso sobre la base a baño maría por 1 hora.','Enfriar completamente, bañar con salsa de caramelo y espolvorear toques de sal gruesa.'] },
+  { id:'cannoli', name:'Cannoli', subtitle:'Postre italiano', category:'postre',
+    groups:[{title:null, items:['Masa fina frita en forma de tubo','Queso ricotta dulce y bien escurrido','Chispas de chocolate y pistachos triturados']}],
+    steps:['Hacer los tubos de masa y freírlos hasta estar crujientes.','Rellenar con la mezcla de ricotta justo antes de servir y decorar los extremos con chocolate.'] },
+  { id:'baklava', name:'Baklava modificado', subtitle:'Postre de Medio Oriente', category:'postre',
+    groups:[{title:null, items:['Hojas de masa filo','Nueces, pistachos y almendras trituradas','Mantequilla clarificada y almíbar de miel y limón']}],
+    steps:['Pincelar capas de masa filo con mantequilla, intercalando con las nueces picadas.','Cortar en rombos, hornear y bañar con el almíbar de miel frío apenas salga del horno.'] },
+  { id:'batido-sandia', name:'Batido de sandía', subtitle:'Con leche condensada', category:'postre',
+    groups:[{title:null, items:['Sandía fresca sin semillas y congelada en cubos','Leche condensada al gusto','Hielo triturado']}],
+    steps:['Licuar los cubos de sandía congelada con un poco de hielo.','Endulzar con la leche condensada hasta lograr textura frappé.'] },
+  { id:'mousse-ajo-negro', name:'Mousse de ajo negro', subtitle:'Chocolate con toque umami', category:'postre',
+    groups:[{title:null, items:['Chocolate oscuro 70%','Crema para batir (nata)','Pasta de ajo negro (sabor caramelizado y profundo)']}],
+    steps:['Derretir el chocolate e incorporar suavemente la pasta de ajo negro.','Montar la crema y envolver con el chocolate de forma aireada. Refrigerar antes de servir.'] },
+  { id:'Quesillo', name:'Quesillo', subtitle:'Venezolano', category:'postre',
+    groups:[{title:null, items:['']}],
+    steps:[''] },
+  { id:'tiramichesecake', name:'Tiramichesecake', subtitle:'Creacion propia', category:'postre',
+    groups:[{title:null, items:['']}],
+    steps:[''] }
+];
 
-.card-img{
-  position:relative;
-  width:100%;
-  aspect-ratio: 4/3;
-  background: var(--accent-tint);
-  overflow:hidden;
-}
-.card-img img{ width:100%; height:100%; object-fit: cover; }
-.card-img .fallback-icon{
-  position:absolute; inset:0;
-  display:flex; align-items:center; justify-content:center;
-  font-size: 30px;
-  opacity: 0.7;
-}
-.card-body{ padding: 20px 22px 26px; }
-.card-tag{
-  display:block;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-.card h3{ font-size: 19px; color: var(--ink); margin-bottom: 6px; font-weight: 500; }
-.card p.subtitle{ font-family:'Fraunces', serif; font-style: italic; font-size: 14px; color: var(--gray); margin: 0 0 18px; min-height: 20px; }
-.card .btn{
-  display:inline-flex;
-  align-items:center;
-  gap: 6px;
-  font-family: 'Work Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ink);
-  text-decoration:none;
-  border-bottom: 1px solid var(--ink);
-  padding-bottom: 2px;
-  transition: color .2s ease, border-color .2s ease;
-}
-.card:hover .btn{ color: var(--accent); border-color: var(--accent); }
+var categoryOrder = ['entrada','fuerte','postre'];
+var categoryLabels = { entrada:'Entradas', fuerte:'Plato Fuerte', postre:'Postre' };
 
-.no-results{
-  text-align:center;
-  padding: 60px 0;
-  color: var(--gray);
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 16px;
+var timelineData = [
+  { date:'Enero 26, 2026', title:'Creacion de las cucharas', note:'Sofi pon info aqui' },
+  { date:'Febrero 2, 2026', title:'Primeras cucharas', note:'Sofi pon info aqui' },
+  { date:'Marzo 14, 2026', title:'Segundas cucharas', note:'Sofi pon info aqui' },
+  { date:'Abril 11,2026', title:'Terceras cucharas (Cumple de Nico)', note:'Sofi pon info aqui' },
+  { date:'Mayo 15,2026', title:'Cuartas cucharas', note:'Sofi pon info aqui' },
+  { date:'Junio 29, 2026', title:'Quintas cucharas', note:'Sofi pon info aqui' },
+  { date:'Julio 22,2026', title:'Cucharaciones', note:'Sofi pon info aqui' },
+  { date:'Agosto 23,2026', title:'Celebracion a Kevin', note:'Sofi pon info aqui' }
+];
+
+var team = [
+  { name:'Diana', role:'Opinóloga profesional', img:'https://lascucharas.online/Diana.png',
+    bio:'Diana siempre busca cocinar un platillo inesperado, si existe la opción de complicarse la vida, esa es la ideal. Su pasión es la mezcla de sabores exóticos y escapar del aburrimiento de la cocina fácil.' },
+  { name:'Diego', role:'Padre del chapin', img:'https://lascucharas.online/Diego.png',
+    bio:'Disfruta cocinar y aprender nuevas recetas en cada oportunidad. Cree que la mejor comida es la que se prepara y se comparte con quienes más aprecia.' },
+  { name:'Kari', role:'Pejibayologist', img:'https://lascucharas.online/Kari.png',
+    bio:'Karina ama las fusiones gastronómicas y odia las auto-descripciones. El estrés constante le ayuda a ser mejor chef y probar sus límites.' },
+  { name:'Mariela', role:'Anfitriona designada', img:'https://lascucharas.online/Ela.png',
+    bio:'Mariela busca cocinar con la mayor precisión cultural posible para brindar una experiencia gastronómica auténtica. Le apasiona la comunidad y el conectar por medio de la comida.' },
+  { name:'Nicole', role:'Amante de la cuchara', img:'https://lascucharas.online/Nico.png',
+    bio:'Nico ha encontrado habilidades culinarias que no sabía que tenía gracias a las cucharas aunque su verdadera pasión es probar lo que le llevan las demás cucharas.' },
+  { name:'Sebastian', role:'Miguel Ángel', img:'https://lascucharas.online/Migue.png',
+    bio:'Su nombre cambió después de ser adoptado por las cucharas, su única preocupación ahora es preparar algo rico (salmón) y poder disfrutar.' },
+  { name:'Sofia', role:'Máster Cuddlerr', img:'https://lascucharas.online/Sofi.png',
+    bio:'Sofía se especializa en sus amplias habilidades de improvisación y un motto de "mis ancestros me dirán cuándo parar de sazonar" que alimentan su instinto y confianza para traer platos que nunca ha probado antes.' },
+  { name:'Kevin', role:'Invitado/Futura posible Cuchara', img:'https://lascucharas.online/Kevin.png',
+    bio:'Invitado por el cumple, el estimadisimo Kevin probo la comida de las cucharas, se espera pueda seguir brindando mas amor y comida a las proximas reuniones.' }
+];
+
+/* ============== STATE ============== */
+var state = { filter:'all', query:'' };
+
+/* ============== HELPERS ============== */
+function esc(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
 }
 
-/* ---------------- modal ---------------- */
-.modal{
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: none;
-  align-items:center;
-  justify-content:center;
-  padding: 24px;
-  background: rgba(26,26,26,0.5);
-}
-.modal.is-open{ display:flex; }
-.modal-content{
-  background: var(--bg);
-  color: var(--ink);
-  max-width: 540px;
-  width: 100%;
-  max-height: 86vh;
-  overflow-y: auto;
-  border-radius: 0;
-  border: 1px solid var(--line);
-  padding: 0 0 34px;
-  position: relative;
-  transform: translateY(8px);
-  opacity: 0;
-  transition: transform .25s ease, opacity .2s ease;
-}
-.modal.is-open .modal-content{ transform: translateY(0); opacity: 1; }
-
-.modal-img{ width:100%; aspect-ratio: 16/9; background: var(--accent-tint); position:relative; overflow:hidden; }
-.modal-img img{ width:100%; height:100%; object-fit:cover; }
-.modal-img .fallback-icon{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:40px; opacity:0.7; }
-
-.modal-text{ padding: 28px 32px 0; }
-
-.close-modal{
-  position: absolute;
-  top: 14px; right: 16px;
-  width: 30px; height: 30px;
-  display:flex; align-items:center; justify-content:center;
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-  color: var(--ink);
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  z-index: 3;
-}
-.close-modal:hover{ border-color: var(--accent); color: var(--accent); }
-
-#modalTitle{ font-size: 25px; margin-bottom: 4px; padding-right: 20px; }
-#modalSubtitle{ font-family:'Fraunces', serif; font-style: italic; color: var(--gray); font-size: 14px; margin-bottom: 22px; }
-
-.modal-body h4{
-  font-family:'Work Sans', sans-serif;
-  font-size: 11.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--accent);
-  margin: 20px 0 8px;
-  font-weight: 600;
-}
-.modal-body h4:first-child{ margin-top:0; }
-.modal-body h5{ font-family:'Fraunces', serif; font-style: italic; font-size: 15px; color: var(--ink); margin: 16px 0 6px; }
-.modal-body ul, .modal-body ol{ margin: 0 0 4px; padding-left: 18px; }
-.modal-body li{ margin-bottom: 6px; font-size: 14.5px; }
-.modal-body iframe{ width:100%; aspect-ratio: 16/9; border:none; margin-top: 18px; }
-
-/* ---------------- timeline ---------------- */
-.timeline-section{ padding: 90px 24px; border-top: 1px solid var(--line); }
-.timeline-section .section-title{
-  text-align:center;
-  font-size: 13px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 56px;
-}
-.timeline{ position:relative; max-width: 640px; margin:0 auto; }
-.timeline::before{
-  content:"";
-  position:absolute;
-  left: 6px;
-  top:0; bottom:0;
-  width: 1px;
-  background: var(--line);
-}
-@media (min-width: 640px){
-  .timeline::before{ left: 50%; transform: translateX(-50%); }
-}
-.timeline-item{ position:relative; margin-bottom: 30px; padding-left: 30px; }
-@media (min-width: 640px){
-  .timeline-item{ width: 50%; padding-left: 0; padding-right: 36px; text-align:right; }
-  .timeline-item.right{ margin-left: 50%; padding-right: 0; padding-left: 36px; text-align:left; }
-}
-.timeline-item::before{
-  content:"";
-  position:absolute;
-  left: 2px; top: 6px;
-  width: 7px; height:7px;
-  border-radius:50%;
-  background: var(--accent);
-}
-@media (min-width: 640px){
-  .timeline-item::before{ left: auto; right: -4px; }
-  .timeline-item.right::before{ left: -4px; right:auto; }
-}
-.timeline-content{ display:inline-block; }
-.event-date{ font-size: 12px; letter-spacing: 0.04em; color: var(--gray); font-weight:600; text-transform: uppercase; }
-.timeline-content h3{ font-size: 18px; font-weight: 500; margin: 4px 0 6px; }
-.timeline-content p{ font-family:'Fraunces', serif; font-style: italic; font-size: 13.5px; color: var(--gray); margin:0; }
-
-/* ---------------- team ---------------- */
-.team-section{ padding: 90px 24px 100px; }
-.section-header{ text-align:center; max-width: 520px; margin: 0 auto 54px; }
-.section-header h2{ font-size: 30px; color: var(--ink); }
-.section-header p{ font-family:'Fraunces', serif; font-style: italic; color: var(--gray); margin-top: 10px; font-size: 15px; }
-.divider{ width: 32px; height:1px; background: var(--accent); margin: 20px auto 0; }
-
-.team-grid{
-  display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-  gap: 26px;
-  max-width: 980px;
-  margin: 0 auto;
-}
-.flip-card{ perspective: 1000px; height: 270px; }
-.flip-inner{
-  position:relative; width:100%; height:100%;
-  transition: transform .6s cubic-bezier(.4,.2,.2,1);
-  transform-style: preserve-3d;
-}
-.flip-card:hover .flip-inner, .flip-card:focus-within .flip-inner{ transform: rotateY(180deg); }
-.flip-front, .flip-back{
-  position:absolute; inset:0;
-  backface-visibility: hidden;
-  border-radius: 0;
-  overflow:hidden;
-  border: 1px solid var(--line);
-}
-.flip-front{
-  background: var(--bg);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding: 24px 16px;
-}
-.flip-front img{
-  width: 96px; height: 96px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 16px;
-}
-.flip-front h3{ font-size:17px; color: var(--ink); font-weight: 500; }
-.flip-front .role{
-  font-family: 'Work Sans', sans-serif;
-  font-size: 11.5px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-top: 5px;
-  display:block;
-}
-.flip-back{
-  background: var(--ink);
-  color: #fff;
-  transform: rotateY(180deg);
-  padding: 26px;
-  display:flex;
-  align-items:center;
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 13.5px;
-  line-height: 1.55;
+function matchesQuery(recipe, q){
+  if (!q) return true;
+  q = q.toLowerCase();
+  if (recipe.name.toLowerCase().indexOf(q) !== -1) return true;
+  if (recipe.subtitle.toLowerCase().indexOf(q) !== -1) return true;
+  for (var g = 0; g < recipe.groups.length; g++){
+    var items = recipe.groups[g].items;
+    for (var i = 0; i < items.length; i++){
+      if (items[i].toLowerCase().indexOf(q) !== -1) return true;
+    }
+  }
+  return false;
 }
 
-footer{
-  text-align:center;
-  padding: 34px 24px 50px;
-  font-size: 13px;
-  color: var(--gray);
-  border-top: 1px solid var(--line);
+function imgOrFallback(id, category, sizePx){
+  var icon = categoryIcon[category] || '🍽️';
+  return '<img src="Images/' + id + '.png" alt="" loading="lazy" ' +
+    'onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+    '<span class="fallback-icon" style="display:none;">' + icon + '</span>';
 }
 
+/* ============== RENDER RECIPES ============== */
+function renderRecipes(){
+  var root = document.getElementById('recipesRoot');
+  var html = '';
+  var anyVisible = false;
+
+  categoryOrder.forEach(function(cat){
+    if (state.filter !== 'all' && state.filter !== cat) return;
+    var items = recipes.filter(function(r){ return r.category === cat && matchesQuery(r, state.query); });
+    if (items.length === 0) return;
+    anyVisible = true;
+    html += '<h2 class="category-title reveal">' + categoryLabels[cat] + '</h2>';
+    html += '<div class="grid">';
+    items.forEach(function(r){
+      html += '' +
+        '<div class="card reveal" data-id="' + r.id + '">' +
+          '<div class="card-img">' + imgOrFallback(r.id, r.category) + '</div>' +
+          '<div class="card-body">' +
+            '<span class="card-tag">' + categoryLabels[r.category] + '</span>' +
+            '<h3>' + esc(r.name) + '</h3>' +
+            '<p class="subtitle">' + esc(r.subtitle) + '</p>' +
+            '<span class="btn">Ver Receta &rarr;</span>' +
+          '</div>' +
+        '</div>';
+    });
+    html += '</div>';
+  });
+
+  if (!anyVisible){
+    html = '<p class="no-results">No encontramos recetas que coincidan. Prueba otra palabra clave.</p>';
+  }
+
+  root.innerHTML = html;
+
+  Array.prototype.forEach.call(root.querySelectorAll('.card'), function(card){
+    card.addEventListener('click', function(){ openModal(card.getAttribute('data-id')); });
+    card.addEventListener('mousemove', tiltCard);
+    card.addEventListener('mouseleave', resetTilt);
+  });
+
+  observeReveals(root.querySelectorAll('.reveal'));
+}
+
+function tiltCard(e){
+  var card = e.currentTarget;
+  var rect = card.getBoundingClientRect();
+  var x = (e.clientX - rect.left) / rect.width - 0.5;
+  var y = (e.clientY - rect.top) / rect.height - 0.5;
+  card.style.transform = 'perspective(700px) rotateY(' + (x * 6) + 'deg) rotateX(' + (y * -6) + 'deg) translateY(-2px)';
+}
+function resetTilt(e){ e.currentTarget.style.transform = ''; }
+
+/* ============== MODAL ============== */
+function openModal(id){
+  var recipe = recipes.filter(function(r){ return r.id === id; })[0];
+  if (!recipe) return;
+
+  document.getElementById('modalImgWrap').innerHTML = imgOrFallback(recipe.id, recipe.category);
+  document.getElementById('modalTitle').textContent = recipe.name;
+  document.getElementById('modalSubtitle').textContent = recipe.subtitle;
+
+  var body = '';
+  recipe.groups.forEach(function(g){
+    if (g.title) body += '<h5>' + esc(g.title) + '</h5>';
+    else body += '<h4>Ingredientes</h4>';
+    body += '<ul>' + g.items.map(function(i){ return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
+  });
+  body += '<h4>Preparación</h4><ol>' + recipe.steps.map(function(s){ return '<li>' + esc(s) + '</li>'; }).join('') + '</ol>';
+  if (recipe.video){
+    body += '<iframe src="' + recipe.video + '" title="Video de la receta" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+  }
+  document.getElementById('modalBody').innerHTML = body;
+
+  var modal = document.getElementById('recipeModal');
+  modal.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  var modal = document.getElementById('recipeModal');
+  modal.classList.remove('is-open');
+  document.body.style.overflow = '';
+  var iframe = document.querySelector('#modalBody iframe');
+  if (iframe) iframe.src = iframe.src;
+}
+
+/* ============== TIMELINE ============== */
+function renderTimeline(){
+  var root = document.getElementById('timelineRoot');
+  var html = '';
+  timelineData.forEach(function(item, idx){
+    var side = idx % 2 === 0 ? 'right' : 'left';
+    html += '' +
+      '<div class="timeline-item ' + side + ' reveal">' +
+        '<div class="timeline-content">' +
+          '<span class="event-date">' + esc(item.date) + '</span>' +
+          '<h3>' + esc(item.title) + '</h3>' +
+          '<p>' + esc(item.note) + '</p>' +
+        '</div>' +
+      '</div>';
+  });
+  root.innerHTML = html;
+  observeReveals(root.querySelectorAll('.reveal'));
+}
+
+/* ============== TEAM ============== */
+function renderTeam(){
+  var root = document.getElementById('teamRoot');
+  var html = '';
+  team.forEach(function(m){
+    html += '' +
+      '<div class="flip-card reveal" tabindex="0">' +
+        '<div class="flip-inner">' +
+          '<div class="flip-front">' +
+            '<img src="' + m.img + '" alt="' + esc(m.name) + '" loading="lazy">' +
+            '<h3>' + esc(m.name) + '</h3>' +
+            '<span class="role">' + esc(m.role) + '</span>' +
+          '</div>' +
+          '<div class="flip-back"><p>' + esc(m.bio) + '</p></div>' +
+        '</div>' +
+      '</div>';
+  });
+  root.innerHTML = html;
+  observeReveals(root.querySelectorAll('.reveal'));
+}
+
+/* ============== REVEAL ON SCROLL ============== */
+var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if (entry.isIntersecting){
+      entry.target.classList.add('is-visible');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }) : null;
+
+function observeReveals(nodeList){
+  if (prefersReduced || !io){
+    Array.prototype.forEach.call(nodeList, function(el){ el.classList.add('is-visible'); });
+    return;
+  }
+  Array.prototype.forEach.call(nodeList, function(el){ io.observe(el); });
+}
+
+/* ============== FILTER TABS ============== */
+function positionIndicator(btn){
+  var indicator = document.getElementById('filterIndicator');
+  indicator.style.width = btn.offsetWidth + 'px';
+  indicator.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
+}
+
+function setupFilters(){
+  var buttons = document.querySelectorAll('.filter-btn');
+  Array.prototype.forEach.call(buttons, function(btn){
+    btn.addEventListener('click', function(){
+      Array.prototype.forEach.call(buttons, function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      state.filter = btn.getAttribute('data-filter');
+      positionIndicator(btn);
+      renderRecipes();
+    });
+  });
+  positionIndicator(document.querySelector('.filter-btn.active'));
+  window.addEventListener('resize', function(){
+    positionIndicator(document.querySelector('.filter-btn.active'));
+  });
+}
+
+/* ============== HERO TITLE REVEAL ============== */
+function buildHeroTitle(){
+  var el = document.getElementById('heroTitle');
+  var text = 'Las Cucharas';
+  var words = text.split(' ');
+  el.innerHTML = words.map(function(w, wi){
+    return '<span style="animation-delay:' + (wi * 0.12 + 0.15) + 's">' + esc(w) + (wi < words.length - 1 ? '&nbsp;' : '') + '</span>';
+  }).join('');
+}
+
+/* ============== HERO UTENSIL PARALLAX ============== */
+function buildUtensils(){
+  var layer = document.getElementById('utensil-layer');
+  var defs = [
+    { d:'M12 2c-2 0-3 2-3 4 0 1.6 1 3 2 3.6V20a1 1 0 0 0 2 0V9.6c1-.6 2-2 2-3.6 0-2-1-4-3-4z', x:'8%',  y:'20%', size:64, depth:0.03, rot:-18, color:'#B97A22' },
+    { d:'M12 2c-2 0-3 2-3 4 0 1.6 1 3 2 3.6V20a1 1 0 0 0 2 0V9.6c1-.6 2-2 2-3.6 0-2-1-4-3-4z', x:'88%', y:'60%', size:52, depth:0.05, rot:24, color:'#7E9765' },
+    { d:'M6 2v9a3 3 0 0 0 6 0V2m-3 9v11', x:'12%', y:'68%', size:56, depth:0.02, rot:12, color:'#5B2E45' },
+    { d:'M6 2v9a3 3 0 0 0 6 0V2m-3 9v11', x:'82%', y:'18%', size:44, depth:0.04, rot:-10, color:'#B97A22' },
+    { d:'M12 2c-2 0-3 2-3 4 0 1.6 1 3 2 3.6V20a1 1 0 0 0 2 0V9.6c1-.6 2-2 2-3.6 0-2-1-4-3-4z', x:'50%', y:'10%', size:36, depth:0.06, rot:6, color:'#7E9765' }
+  ];
+  defs.forEach(function(d){
+    var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 24 24');
+    svg.setAttribute('width', d.size);
+    svg.setAttribute('height', d.size);
+    svg.style.left = d.x;
+    svg.style.top = d.y;
+    svg.style.transform = 'rotate(' + d.rot + 'deg)';
+    svg.dataset.depth = d.depth;
+    svg.dataset.baseRot = d.rot;
+    var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', d.d);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', d.color);
+    path.setAttribute('stroke-width', '1.4');
+    path.setAttribute('stroke-linecap','round');
+    path.setAttribute('stroke-linejoin','round');
+    svg.appendChild(path);
+    layer.appendChild(svg);
+  });
+
+  if (prefersReduced) return;
+  var hero = document.querySelector('.hero');
+  hero.addEventListener('mousemove', function(e){
+    var rect = hero.getBoundingClientRect();
+    var cx = (e.clientX - rect.left) / rect.width - 0.5;
+    var cy = (e.clientY - rect.top) / rect.height - 0.5;
+    Array.prototype.forEach.call(layer.querySelectorAll('svg'), function(svg){
+      var depth = parseFloat(svg.dataset.depth);
+      var rot = parseFloat(svg.dataset.baseRot);
+      var tx = cx * depth * 420;
+      var ty = cy * depth * 420;
+      svg.style.transform = 'translate(' + tx + 'px,' + ty + 'px) rotate(' + rot + 'deg)';
+    });
+  });
+}
+
+/* ============== INIT ============== */
+document.addEventListener('DOMContentLoaded', function(){
+  buildHeroTitle();
+  setupFilters();
+  renderRecipes();
+  renderTimeline();
+  renderTeam();
+  buildUtensils();
+  observeReveals(document.querySelectorAll('.philosophy.reveal, .section-title.reveal, .section-header.reveal'));
+
+  document.getElementById('searchInput').addEventListener('input', function(e){
+    state.query = e.target.value;
+    renderRecipes();
+  });
+
+  document.getElementById('closeModal').addEventListener('click', closeModal);
+  document.getElementById('recipeModal').addEventListener('click', function(e){
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeModal();
+  });
+});
+})();
+</script>
+
+</body>
+</html>
