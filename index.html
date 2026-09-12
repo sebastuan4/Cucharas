@@ -10,35 +10,31 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 
-<header class="hero">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
-  <div id="utensil-layer"></div>
-  <div class="hero-inner">
-    <span class="hero-eyebrow">Reuniones privadas de sabor</span>
-    <h1 id="heroTitle"></h1>
-    <p class="tagline">Por un dia lleno de sabor, musica y cariño</p>
-    <div class="hero-group">
-      <img src="https://lascucharas.online/Group.jpg" alt="El grupo de Las Cucharas" loading="lazy">
-    </div>
-  </div>
-  <div class="scroll-cue" aria-hidden="true"></div>
+<header class="site-head">
+  <span class="wordmark">Las Cucharas</span>
 </header>
 
-<section class="philosophy reveal">
-  <h2>La Filosofia</h2>
+<section class="hero">
+  <span class="eyebrow">Reuniones privadas de sabor</span>
+  <h1>Las Cucharas</h1>
+  <p class="tagline">Por un dia lleno de sabor, musica y cariño</p>
+  <div class="hero-photo">
+    <img src="https://lascucharas.online/Group.jpg" alt="El grupo de Las Cucharas" loading="lazy">
+  </div>
+</section>
+
+<section class="philosophy col reveal">
   <p>Cada Cuchara suele ser una sorpresa donde se eligen ingredientes con tematica por paises o de forma aleatoria, cuando nos reunimos descubrimos las recetas que cada uno hizo, este sera un recopilatorio de esas recetas.</p>
 </section>
 
 <div class="controls">
   <div class="controls-inner">
-    <input type="text" id="searchInput" placeholder="Buscar por receta, ingrediente o palabra clave...">
-    <div class="filter-buttons" id="filterButtons">
-      <span class="filter-indicator" id="filterIndicator"></span>
+    <input type="text" id="searchInput" placeholder="Buscar receta o ingrediente…">
+    <div class="filter-list" id="filterButtons">
       <button class="filter-btn active" data-filter="all">Todos</button>
       <button class="filter-btn" data-filter="entrada">Entradas</button>
       <button class="filter-btn" data-filter="fuerte">Plato Fuerte</button>
@@ -47,32 +43,19 @@
   </div>
 </div>
 
-<section class="recipes-container wrap">
+<section class="recipes-container col-wide">
   <div id="recipesRoot"></div>
 </section>
 
-<div id="recipeModal" class="modal">
-  <div class="modal-content">
-    <button class="close-modal" id="closeModal" aria-label="Cerrar">&times;</button>
-    <div class="modal-img" id="modalImgWrap"></div>
-    <div class="modal-text">
-      <h2 id="modalTitle">Título de la receta</h2>
-      <p id="modalSubtitle"></p>
-      <div id="modalBody" class="modal-body"></div>
-    </div>
-  </div>
-</div>
-
-<section class="timeline-section wrap">
+<section class="timeline-section col">
   <h2 class="section-title reveal">Nuestras Cucharas</h2>
   <div class="timeline" id="timelineRoot"></div>
 </section>
 
 <section class="team-section">
   <div class="section-header reveal">
-    <h2>Meet the Culinary Team</h2>
+    <h2>El Equipo</h2>
     <p>The visionaries and artisans behind every dish we serve.</p>
-    <div class="divider"></div>
   </div>
   <div class="team-grid" id="teamRoot"></div>
 </section>
@@ -272,161 +255,6 @@ var team = [
 ];
 
 /* ============== STATE ============== */
-var state = { filter:'all', query:'' };
-
-/* ============== HELPERS ============== */
-function esc(s){
-  return String(s).replace(/[&<>"']/g, function(c){
-    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
-  });
-}
-
-function matchesQuery(recipe, q){
-  if (!q) return true;
-  q = q.toLowerCase();
-  if (recipe.name.toLowerCase().indexOf(q) !== -1) return true;
-  if (recipe.subtitle.toLowerCase().indexOf(q) !== -1) return true;
-  for (var g = 0; g < recipe.groups.length; g++){
-    var items = recipe.groups[g].items;
-    for (var i = 0; i < items.length; i++){
-      if (items[i].toLowerCase().indexOf(q) !== -1) return true;
-    }
-  }
-  return false;
-}
-
-function imgOrFallback(id, category, sizePx){
-  var icon = categoryIcon[category] || '🍽️';
-  return '<img src="Images/' + id + '.png" alt="" loading="lazy" ' +
-    'onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
-    '<span class="fallback-icon" style="display:none;">' + icon + '</span>';
-}
-
-/* ============== RENDER RECIPES ============== */
-function renderRecipes(){
-  var root = document.getElementById('recipesRoot');
-  var html = '';
-  var anyVisible = false;
-
-  categoryOrder.forEach(function(cat){
-    if (state.filter !== 'all' && state.filter !== cat) return;
-    var items = recipes.filter(function(r){ return r.category === cat && matchesQuery(r, state.query); });
-    if (items.length === 0) return;
-    anyVisible = true;
-    html += '<h2 class="category-title reveal">' + categoryLabels[cat] + '</h2>';
-    html += '<div class="grid">';
-    items.forEach(function(r){
-      html += '' +
-        '<div class="card reveal" data-id="' + r.id + '">' +
-          '<div class="card-img">' + imgOrFallback(r.id, r.category) + '</div>' +
-          '<div class="card-body">' +
-            '<span class="card-tag">' + categoryLabels[r.category] + '</span>' +
-            '<h3>' + esc(r.name) + '</h3>' +
-            '<p class="subtitle">' + esc(r.subtitle) + '</p>' +
-            '<span class="btn">Ver Receta &rarr;</span>' +
-          '</div>' +
-        '</div>';
-    });
-    html += '</div>';
-  });
-
-  if (!anyVisible){
-    html = '<p class="no-results">No encontramos recetas que coincidan. Prueba otra palabra clave.</p>';
-  }
-
-  root.innerHTML = html;
-
-  Array.prototype.forEach.call(root.querySelectorAll('.card'), function(card){
-    card.addEventListener('click', function(){ openModal(card.getAttribute('data-id')); });
-    card.addEventListener('mousemove', tiltCard);
-    card.addEventListener('mouseleave', resetTilt);
-  });
-
-  observeReveals(root.querySelectorAll('.reveal'));
-}
-
-function tiltCard(e){
-  var card = e.currentTarget;
-  var rect = card.getBoundingClientRect();
-  var x = (e.clientX - rect.left) / rect.width - 0.5;
-  var y = (e.clientY - rect.top) / rect.height - 0.5;
-  card.style.transform = 'perspective(700px) rotateY(' + (x * 6) + 'deg) rotateX(' + (y * -6) + 'deg) translateY(-2px)';
-}
-function resetTilt(e){ e.currentTarget.style.transform = ''; }
-
-/* ============== MODAL ============== */
-function openModal(id){
-  var recipe = recipes.filter(function(r){ return r.id === id; })[0];
-  if (!recipe) return;
-
-  document.getElementById('modalImgWrap').innerHTML = imgOrFallback(recipe.id, recipe.category);
-  document.getElementById('modalTitle').textContent = recipe.name;
-  document.getElementById('modalSubtitle').textContent = recipe.subtitle;
-
-  var body = '';
-  recipe.groups.forEach(function(g){
-    if (g.title) body += '<h5>' + esc(g.title) + '</h5>';
-    else body += '<h4>Ingredientes</h4>';
-    body += '<ul>' + g.items.map(function(i){ return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
-  });
-  body += '<h4>Preparación</h4><ol>' + recipe.steps.map(function(s){ return '<li>' + esc(s) + '</li>'; }).join('') + '</ol>';
-  if (recipe.video){
-    body += '<iframe src="' + recipe.video + '" title="Video de la receta" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
-  }
-  document.getElementById('modalBody').innerHTML = body;
-
-  var modal = document.getElementById('recipeModal');
-  modal.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal(){
-  var modal = document.getElementById('recipeModal');
-  modal.classList.remove('is-open');
-  document.body.style.overflow = '';
-  var iframe = document.querySelector('#modalBody iframe');
-  if (iframe) iframe.src = iframe.src;
-}
-
-/* ============== TIMELINE ============== */
-function renderTimeline(){
-  var root = document.getElementById('timelineRoot');
-  var html = '';
-  timelineData.forEach(function(item, idx){
-    var side = idx % 2 === 0 ? 'right' : 'left';
-    html += '' +
-      '<div class="timeline-item ' + side + ' reveal">' +
-        '<div class="timeline-content">' +
-          '<span class="event-date">' + esc(item.date) + '</span>' +
-          '<h3>' + esc(item.title) + '</h3>' +
-          '<p>' + esc(item.note) + '</p>' +
-        '</div>' +
-      '</div>';
-  });
-  root.innerHTML = html;
-  observeReveals(root.querySelectorAll('.reveal'));
-}
-
-/* ============== TEAM ============== */
-function renderTeam(){
-  var root = document.getElementById('teamRoot');
-  var html = '';
-  team.forEach(function(m){
-    html += '' +
-      '<div class="flip-card reveal" tabindex="0">' +
-        '<div class="flip-inner">' +
-          '<div class="flip-front">' +
-            '<img src="' + m.img + '" alt="' + esc(m.name) + '" loading="lazy">' +
-            '<h3>' + esc(m.name) + '</h3>' +
-            '<span class="role">' + esc(m.role) + '</span>' +
-          '</div>' +
-          '<div class="flip-back"><p>' + esc(m.bio) + '</p></div>' +
-        '</div>' +
-      '</div>';
-  });
-  root.innerHTML = html;
-  observeReveals(root.querySelectorAll('.reveal'));
-}
 
 /* ============== REVEAL ON SCROLL ============== */
 var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -512,43 +340,190 @@ function buildUtensils(){
     layer.appendChild(svg);
   });
 
-  if (prefersReduced) return;
-  var hero = document.querySelector('.hero');
-  hero.addEventListener('mousemove', function(e){
-    var rect = hero.getBoundingClientRect();
-    var cx = (e.clientX - rect.left) / rect.width - 0.5;
-    var cy = (e.clientY - rect.top) / rect.height - 0.5;
-    Array.prototype.forEach.call(layer.querySelectorAll('svg'), function(svg){
-      var depth = parseFloat(svg.dataset.depth);
-      var rot = parseFloat(svg.dataset.baseRot);
-      var tx = cx * depth * 420;
-      var ty = cy * depth * 420;
-      svg.style.transform = 'translate(' + tx + 'px,' + ty + 'px) rotate(' + rot + 'deg)';
+
+var state = { filter:'all', query:'', openId:null };
+
+/* ============== HELPERS ============== */
+function esc(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function matchesQuery(recipe, q){
+  if (!q) return true;
+  q = q.toLowerCase();
+  if (recipe.name.toLowerCase().indexOf(q) !== -1) return true;
+  if (recipe.subtitle.toLowerCase().indexOf(q) !== -1) return true;
+  for (var g = 0; g < recipe.groups.length; g++){
+    var items = recipe.groups[g].items;
+    for (var i = 0; i < items.length; i++){
+      if (items[i].toLowerCase().indexOf(q) !== -1) return true;
+    }
+  }
+  return false;
+}
+
+function thumb(recipe){
+  return '<img src="Images/' + recipe.id + '.jpg" alt="" loading="lazy" ' +
+    'onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+    '<span style="display:none;">' + esc(recipe.name.charAt(0)) + '</span>';
+}
+
+function detailHTML(recipe){
+  var html = '';
+  recipe.groups.forEach(function(g){
+    if (g.title) html += '<h5>' + esc(g.title) + '</h5>';
+    else html += '<h4>Ingredientes</h4>';
+    html += '<ul>' + g.items.map(function(i){ return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
+  });
+  html += '<div><h4>Preparación</h4><ol>' + recipe.steps.map(function(s){ return '<li>' + esc(s) + '</li>'; }).join('') + '</ol></div>';
+  if (recipe.video){
+    html += '<iframe src="' + recipe.video + '" title="Video de la receta" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+  }
+  return html;
+}
+
+/* ============== RENDER RECIPES ============== */
+function renderRecipes(){
+  var root = document.getElementById('recipesRoot');
+  var html = '';
+  var anyVisible = false;
+
+  categoryOrder.forEach(function(cat){
+    if (state.filter !== 'all' && state.filter !== cat) return;
+    var items = recipes.filter(function(r){ return r.category === cat && matchesQuery(r, state.query); });
+    if (items.length === 0) return;
+    anyVisible = true;
+    html += '<h2 class="category-title reveal is-visible">' + categoryLabels[cat] + '</h2>';
+    items.forEach(function(r, idx){
+      var isOpen = state.openId === r.id;
+      html += '' +
+        '<div class="recipe-row' + (isOpen ? ' is-open' : '') + '" data-id="' + r.id + '">' +
+          '<span class="recipe-index">' + String(idx + 1).padStart(2, '0') + '</span>' +
+          '<span class="recipe-thumb">' + thumb(r) + '</span>' +
+          '<div class="recipe-main">' +
+            '<div class="recipe-name">' + esc(r.name) + '</div>' +
+            '<div class="recipe-sub">' + esc(r.subtitle) + '</div>' +
+          '</div>' +
+          '<span class="recipe-caret">+</span>' +
+        '</div>' +
+        '<div class="recipe-detail" id="detail-' + r.id + '">' +
+          '<div class="recipe-detail-inner">' + detailHTML(r) + '</div>' +
+        '</div>';
+    });
+  });
+
+  if (!anyVisible){
+    html = '<p class="no-results">No encontramos recetas que coincidan. Prueba otra palabra clave.</p>';
+  }
+
+  root.innerHTML = html;
+
+  Array.prototype.forEach.call(root.querySelectorAll('.recipe-row'), function(row){
+    row.addEventListener('click', function(){
+      var id = row.getAttribute('data-id');
+      state.openId = (state.openId === id) ? null : id;
+      renderRecipes();
+      if (state.openId === id){
+        setTimeout(function(){
+          row.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'nearest' });
+        }, 50);
+      }
+    });
+  });
+
+  // open the detail panel if applicable, using max-height for a smooth expand
+  if (state.openId){
+    var panel = document.getElementById('detail-' + state.openId);
+    if (panel){
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    }
+  }
+}
+
+/* ============== TIMELINE ============== */
+function renderTimeline(){
+  var root = document.getElementById('timelineRoot');
+  var html = '';
+  timelineData.forEach(function(item){
+    html += '' +
+      '<div class="timeline-item reveal">' +
+        '<div class="event-date">' + esc(item.date) + '</div>' +
+        '<div class="timeline-content">' +
+          '<h3>' + esc(item.title) + '</h3>' +
+          '<p>' + esc(item.note) + '</p>' +
+        '</div>' +
+      '</div>';
+  });
+  root.innerHTML = html;
+  observeReveals(root.querySelectorAll('.reveal'));
+}
+
+/* ============== TEAM ============== */
+function renderTeam(){
+  var root = document.getElementById('teamRoot');
+  var html = '';
+  team.forEach(function(m){
+    html += '' +
+      '<div class="team-member reveal">' +
+        '<div class="team-photo"><img src="' + m.img + '" alt="' + esc(m.name) + '" loading="lazy"></div>' +
+        '<h3>' + esc(m.name) + '</h3>' +
+        '<div class="team-role">' + esc(m.role) + '</div>' +
+        '<p class="team-bio">' + esc(m.bio) + '</p>' +
+      '</div>';
+  });
+  root.innerHTML = html;
+  observeReveals(root.querySelectorAll('.reveal'));
+}
+
+/* ============== REVEAL ON SCROLL (fade only) ============== */
+var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if (entry.isIntersecting){
+      entry.target.classList.add('is-visible');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' }) : null;
+
+function observeReveals(nodeList){
+  if (prefersReduced || !io){
+    Array.prototype.forEach.call(nodeList, function(el){ el.classList.add('is-visible'); });
+    return;
+  }
+  Array.prototype.forEach.call(nodeList, function(el){ io.observe(el); });
+}
+
+/* ============== FILTERS ============== */
+function setupFilters(){
+  var buttons = document.querySelectorAll('.filter-btn');
+  var controls = document.querySelector('.controls');
+  Array.prototype.forEach.call(buttons, function(btn){
+    btn.addEventListener('click', function(){
+      Array.prototype.forEach.call(buttons, function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      state.filter = btn.getAttribute('data-filter');
+      state.openId = null;
+      renderRecipes();
+      controls.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
     });
   });
 }
 
 /* ============== INIT ============== */
 document.addEventListener('DOMContentLoaded', function(){
-  buildHeroTitle();
   setupFilters();
   renderRecipes();
   renderTimeline();
   renderTeam();
-  buildUtensils();
   observeReveals(document.querySelectorAll('.philosophy.reveal, .section-title.reveal, .section-header.reveal'));
 
   document.getElementById('searchInput').addEventListener('input', function(e){
     state.query = e.target.value;
+    state.openId = null;
     renderRecipes();
-  });
-
-  document.getElementById('closeModal').addEventListener('click', closeModal);
-  document.getElementById('recipeModal').addEventListener('click', function(e){
-    if (e.target === this) closeModal();
-  });
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') closeModal();
   });
 });
 })();
