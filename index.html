@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,9 +6,289 @@
 <title>Las Cucharas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FFFFFF;
+    --ink: #1A1A1A;
+    --gray: #6B6B6B;
+    --line: #E4E1DC;
+    --accent: #A63D2F;
+    --accent-tint: #F5E9E6;
+  }
 
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Newsreader', serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color: inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+  ::selection{ background: var(--accent-tint); color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  .col{ max-width: 720px; margin: 0 auto; padding: 0 28px; }
+  .col-wide{ max-width: 960px; margin: 0 auto; padding: 0 28px; }
+
+  .eyebrow{
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+
+  /* ---------------- reveal (fade only, no motion) ---------------- */
+  .reveal{ opacity:0; transition: opacity .8s ease; }
+  .reveal.is-visible{ opacity:1; }
+
+  /* ================= HEADER ================= */
+  .site-head{
+    padding: 26px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-bottom: 1px solid var(--line);
+  }
+  .wordmark{
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  /* ================= HERO ================= */
+  .hero{
+    text-align:center;
+    padding: 90px 28px 70px;
+  }
+  .hero h1{
+    font-family: 'Newsreader', serif;
+    font-weight: 500;
+    font-size: clamp(46px, 8vw, 80px);
+    margin: 18px 0 0;
+    letter-spacing: -0.01em;
+  }
+  .hero .tagline{
+    font-style: italic;
+    color: var(--gray);
+    font-size: 18px;
+    margin: 18px 0 0;
+  }
+  .hero-photo{
+    margin: 46px auto 0;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .hero-photo img{ width:100%; height:100%; object-fit:cover; }
+
+  /* ---------------- philosophy ---------------- */
+  .philosophy{ padding: 10px 28px 80px; text-align:center; }
+  .philosophy p{
+    font-size: 19px;
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  hr.rule{ border:none; border-top: 1px solid var(--line); margin: 0; }
+
+  /* ---------------- controls ---------------- */
+  .controls{
+    padding: 30px 28px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 20;
+  }
+  .controls-inner{
+    max-width: 960px;
+    margin: 0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    gap: 22px;
+    align-items:center;
+    justify-content: space-between;
+  }
+  #searchInput{
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    padding: 4px 2px;
+    outline: none;
+    flex: 1 1 220px;
+    min-width: 200px;
+  }
+  #searchInput::placeholder{ color: var(--gray); }
+  #searchInput:focus{ border-color: var(--accent); }
+
+  .filter-list{
+    display:flex;
+    gap: 20px;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+  }
+  .filter-btn{
+    background:none;
+    border:none;
+    cursor:pointer;
+    color: var(--gray);
+    font-family: 'Newsreader', serif;
+    font-size: 14px;
+    padding: 4px 0;
+    border-bottom: 1px solid transparent;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .filter-btn.active, .filter-btn:hover{ color: var(--ink); border-color: var(--accent); }
+
+  /* ---------------- recipes ---------------- */
+  .recipes-container{ padding: 10px 28px 20px; }
+  .category-title{
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 60px 0 4px;
+  }
+  .category-title:first-of-type{ margin-top: 46px; }
+
+  .recipe-wrapper { border-bottom: 1px solid var(--line); }
+  
+  .recipe-row{
+    display:flex;
+    align-items:center;
+    gap: 18px;
+    padding: 20px 0;
+    cursor: pointer;
+    user-select: none;
+  }
+  .recipe-thumb{
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    overflow:hidden;
+    flex-shrink:0;
+    background: var(--accent-tint);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Newsreader', serif;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 18px;
+  }
+  .recipe-thumb img{ width:100%; height:100%; object-fit:cover; }
+  .recipe-main{ flex:1; min-width:0; }
+  .recipe-name{ font-size: 19px; color: var(--ink); margin: 0;}
+  .recipe-sub{ font-size: 14px; color: var(--gray); font-style: italic; margin-top: 2px; }
+  .recipe-index{ font-size: 13px; color: var(--gray); width: 26px; flex-shrink:0; }
+  .recipe-caret{
+    font-size: 20px;
+    color: var(--gray);
+    transition: transform .3s ease;
+    flex-shrink:0;
+  }
+  .recipe-wrapper.is-open .recipe-caret{ transform: rotate(45deg); }
+
+  .recipe-detail{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease;
+  }
+  .recipe-detail-inner{
+    padding: 4px 0 32px 96px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  @media (max-width: 640px){
+    .recipe-detail-inner{ grid-template-columns: 1fr; padding-left: 0; margin-top: 15px;}
+  }
+  .recipe-detail h4{
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 14px 0 8px;
+    font-family: 'Newsreader', serif;
+    font-style: normal;
+  }
+  .recipe-detail h4:first-child{ margin-top:0; }
+  .recipe-detail h5{ font-size:14px; font-style: italic; color: var(--ink); margin: 12px 0 4px; }
+  .recipe-detail ul, .recipe-detail ol{ margin:0; padding-left: 18px; }
+  .recipe-detail li{ font-size: 14.5px; color: var(--ink); margin-bottom: 5px; }
+  .recipe-detail iframe{ width:100%; aspect-ratio:16/9; border:none; margin-top: 14px; grid-column: 1 / -1; }
+
+  .no-results{ text-align:center; padding: 50px 0; color: var(--gray); font-style: italic; }
+
+  /* ---------------- timeline ---------------- */
+  .timeline-section{ padding: 90px 28px; border-top: 1px solid var(--line); }
+  .timeline-section .section-title{
+    text-align:center;
+    font-size: 34px;
+    font-weight: 500;
+    margin-bottom: 56px;
+  }
+  .timeline{ max-width: 640px; margin: 0 auto; }
+  .timeline-item{
+    display:grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px;
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+  .timeline-item:last-child{ border-bottom: 1px solid var(--line); }
+  @media (max-width: 560px){
+    .timeline-item{ grid-template-columns: 1fr; gap:4px; }
+  }
+  .event-date{ font-size: 13px; color: var(--gray); letter-spacing: 0.03em; padding-top: 3px; }
+  .timeline-content h3{ font-size: 19px; font-weight: 500; margin: 0 0 4px; }
+  .timeline-content p{ font-size: 14px; color: var(--gray); font-style: italic; margin:0; }
+
+  /* ---------------- team ---------------- */
+  .team-section{ padding: 90px 28px 100px; border-top: 1px solid var(--line); }
+  .section-header{ text-align:center; max-width: 520px; margin: 0 auto 60px; }
+  .section-header h2{ font-size: 34px; font-weight: 500; }
+  .section-header p{ color: var(--gray); font-style: italic; margin-top: 10px; }
+
+  .team-grid{
+    max-width: 960px;
+    margin: 0 auto;
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    gap: 40px 30px;
+  }
+  .team-member{ text-align:center; }
+  .team-photo{
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    overflow:hidden;
+  }
+  .team-photo img{ width:100%; height:100%; object-fit:cover; }
+  .team-member h3{ font-size: 18px; font-weight: 500; margin:0; }
+  .team-role{ font-size: 12.5px; color: var(--accent); font-style: italic; margin: 3px 0 10px; }
+  .team-bio{ font-size: 13.5px; color: var(--gray); line-height: 1.55; }
+
+  footer{
+    text-align:center;
+    padding: 40px 28px;
+    font-size: 13px;
+    color: var(--gray);
+  }
+</style>
 </head>
 <body>
 
@@ -18,47 +296,49 @@
   <span class="wordmark">Las Cucharas</span>
 </header>
 
-<section class="hero">
-  <span class="eyebrow">Reuniones privadas de sabor</span>
-  <h1>Las Cucharas</h1>
-  <p class="tagline">Por un dia lleno de sabor, musica y cariño</p>
-  <div class="hero-photo">
-    <img src="https://lascucharas.online/Group.jpg" alt="El grupo de Las Cucharas" loading="lazy">
-  </div>
-</section>
+<main>
+  <section class="hero">
+    <span class="eyebrow">Reuniones privadas de sabor</span>
+    <h1>Las Cucharas</h1>
+    <p class="tagline">Por un dia lleno de sabor, musica y cariño</p>
+    <div class="hero-photo reveal">
+      <img src="https://lascucharas.online/Group.jpg" alt="El grupo de Las Cucharas" loading="lazy">
+    </div>
+  </section>
 
-<section class="philosophy col reveal">
-  <p>Cada Cuchara suele ser una sorpresa donde se eligen ingredientes con tematica por paises o de forma aleatoria, cuando nos reunimos descubrimos las recetas que cada uno hizo, este sera un recopilatorio de esas recetas.</p>
-</section>
+  <section class="philosophy col reveal">
+    <p>Cada Cuchara suele ser una sorpresa donde se eligen ingredientes con tematica por paises o de forma aleatoria, cuando nos reunimos descubrimos las recetas que cada uno hizo, este sera un recopilatorio de esas recetas.</p>
+  </section>
 
-<div class="controls">
-  <div class="controls-inner">
-    <input type="text" id="searchInput" placeholder="Buscar receta o ingrediente…">
-    <div class="filter-list" id="filterButtons">
-      <button class="filter-btn active" data-filter="all">Todos</button>
-      <button class="filter-btn" data-filter="entrada">Entradas</button>
-      <button class="filter-btn" data-filter="fuerte">Plato Fuerte</button>
-      <button class="filter-btn" data-filter="postre">Postres</button>
+  <div class="controls">
+    <div class="controls-inner">
+      <input type="text" id="searchInput" placeholder="Buscar receta o ingrediente…">
+      <div class="filter-list" id="filterButtons">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="entrada">Entradas</button>
+        <button class="filter-btn" data-filter="fuerte">Platos Fuertes</button>
+        <button class="filter-btn" data-filter="postre">Postres</button>
+      </div>
     </div>
   </div>
-</div>
 
-<section class="recipes-container col-wide">
-  <div id="recipesRoot"></div>
-</section>
+  <section id="seccion-recetas" class="recipes-container col-wide">
+    <div id="recipesRoot"></div>
+  </section>
 
-<section class="timeline-section col">
-  <h2 class="section-title reveal">Nuestras Cucharas</h2>
-  <div class="timeline" id="timelineRoot"></div>
-</section>
+  <section class="timeline-section col">
+    <h2 class="section-title reveal">Nuestras Cucharas</h2>
+    <div class="timeline" id="timelineRoot"></div>
+  </section>
 
-<section class="team-section">
-  <div class="section-header reveal">
-    <h2>El Equipo</h2>
-    <p>The visionaries and artisans behind every dish we serve.</p>
-  </div>
-  <div class="team-grid" id="teamRoot"></div>
-</section>
+  <section class="team-section">
+    <div class="section-header reveal">
+      <h2>El Equipo</h2>
+      <p>Los visionarios y artesanos detrás de cada platillo que servimos.</p>
+    </div>
+    <div class="team-grid" id="teamRoot"></div>
+  </section>
+</main>
 
 <footer>
   © Las Reuniones de las cucharas es un evento privado, solo se puede entrar por invitacion.
@@ -70,9 +350,7 @@
 
 /* ============== DATA ============== */
 
-var categoryIcon = { entrada:'🥗', fuerte:'🍲', postre:'🍰' };
-
-var recipes = [
+const recipes = [
   { id:'capresse', name:'Capresse', subtitle:'Ensalada fresca italiana', category:'entrada',
     groups:[{title:null, items:['Tomates frescos rebanados','Queso mozzarella en rodajas','Hojas de albahaca fresca','Aceite de oliva extra virgen y reducción de vinagre balsámico']}],
     steps:['Intercalar una rodaja de tomate, una de queso y una hoja de albahaca.','Aderezar con sal, pimienta, aceite de oliva y un toque de balsámico.'] },
@@ -133,9 +411,6 @@ var recipes = [
   { id:'empanadillas-pollo', name:'Empanadillas de pollo en salsa de naranja', subtitle:'', category:'entrada',
     groups:[{title:null, items:['Harina','Pollo']}],
     steps:['To be defined'] },
-
-
-
   { id:'risotto', name:'Risotto con trufa y parmesano', subtitle:'Arroz cremoso italiano', category:'fuerte',
     groups:[{title:null, items:['Arroz Arborio o Carnaroli','Caldo de pollo o vegetales muy caliente','Mantequilla, queso parmesano rallado','Aceite o pasta de trufa negra']}],
     steps:['Tostar el arroz y agregar el caldo cucharón a cucharón sin dejar de remover.','Apagar el fuego, añadir mantequilla, queso y la trufa. Emulsionar vigorosamente.'] },
@@ -164,15 +439,11 @@ var recipes = [
     groups:[{title:null, items:['Trozos de cerdo empanizados y fritos','Pimientos de colores y piña en cubos','Kétchup, vinagre, azúcar y salsa de soya']}],
     steps:['Mezclar vinagre, kétchup y azúcar para la salsa agridulce y espesar con maicena.','Saltear vegetales, añadir el cerdo frito y bañar con la salsa brillante.'] },
   { id:'noqui-tocino', name:'Ñoqui con Tocino', subtitle:'Pasta', category:'fuerte',
-    groups:[{title:null, items:['']}],
-    steps:[''] },
+    groups:[{title:null, items:['To be defined']}],
+    steps:['To be defined'] },
   { id:'arroz-sofi', name:'Arroz Estilo Asiatico', subtitle:'Asiatico', category:'fuerte',
-    groups:[{title:null, items:['']}],
-    steps:[''] },
-
-
-
-
+    groups:[{title:null, items:['To be defined']}],
+    steps:['To be defined'] },
   { id:'alfajores', name:'Alfajores', subtitle:'Dulce sudamericano', category:'postre',
     groups:[{title:null, items:['Maicena, harina, mantequilla y azúcar glass','Dulce de leche repostero','Coco rallado para los bordes']}],
     steps:['Hornear las tapitas de masa de maicena hasta que estén apenas doradas.','Rellenar dos tapas con abundante dulce de leche y rodar por el coco.'] },
@@ -213,29 +484,29 @@ var recipes = [
   { id:'mousse-ajo-negro', name:'Mousse de ajo negro', subtitle:'Chocolate con toque umami', category:'postre',
     groups:[{title:null, items:['Chocolate oscuro 70%','Crema para batir (nata)','Pasta de ajo negro (sabor caramelizado y profundo)']}],
     steps:['Derretir el chocolate e incorporar suavemente la pasta de ajo negro.','Montar la crema y envolver con el chocolate de forma aireada. Refrigerar antes de servir.'] },
-  { id:'Quesillo', name:'Quesillo', subtitle:'Venezolano', category:'postre',
-    groups:[{title:null, items:['']}],
-    steps:[''] },
+  { id:'quesillo', name:'Quesillo', subtitle:'Venezolano', category:'postre',
+    groups:[{title:null, items:['To be defined']}],
+    steps:['To be defined'] },
   { id:'tiramichesecake', name:'Tiramichesecake', subtitle:'Creacion propia', category:'postre',
-    groups:[{title:null, items:['']}],
-    steps:[''] }
+    groups:[{title:null, items:['To be defined']}],
+    steps:['To be defined'] }
 ];
 
-var categoryOrder = ['entrada','fuerte','postre'];
-var categoryLabels = { entrada:'Entradas', fuerte:'Plato Fuerte', postre:'Postre' };
+const categoryOrder = ['entrada','fuerte','postre'];
+const categoryLabels = { entrada:'Entradas', fuerte:'Plato Fuerte', postre:'Postres' };
 
-var timelineData = [
-  { date:'Enero 26, 2026', title:'Creacion de las cucharas', note:'Sofi pon info aqui' },
-  { date:'Febrero 2, 2026', title:'Primeras cucharas', note:'Sofi pon info aqui' },
-  { date:'Marzo 14, 2026', title:'Segundas cucharas', note:'Sofi pon info aqui' },
-  { date:'Abril 11,2026', title:'Terceras cucharas (Cumple de Nico)', note:'Sofi pon info aqui' },
-  { date:'Mayo 15,2026', title:'Cuartas cucharas', note:'Sofi pon info aqui' },
-  { date:'Junio 29, 2026', title:'Quintas cucharas', note:'Sofi pon info aqui' },
-  { date:'Julio 22,2026', title:'Cucharaciones', note:'Sofi pon info aqui' },
-  { date:'Agosto 23,2026', title:'Celebracion a Kevin', note:'Sofi pon info aqui' }
+const timelineData = [
+  { date:'Enero 26, 2026', title:'Creación de las cucharas', note:'Primer encuentro culinario oficial.' },
+  { date:'Febrero 2, 2026', title:'Primeras cucharas', note:'Descubriendo nuestros talentos ocultos.' },
+  { date:'Marzo 14, 2026', title:'Segundas cucharas', note:'Noche temática de sabores europeos.' },
+  { date:'Abril 11, 2026', title:'Terceras cucharas', note:'Celebrando el cumpleaños de Nico.' },
+  { date:'Mayo 15, 2026', title:'Cuartas cucharas', note:'Reto de ingredientes sorpresa.' },
+  { date:'Junio 29, 2026', title:'Quintas cucharas', note:'Fusión de comida asiática y latina.' },
+  { date:'Julio 22, 2026', title:'Cucharaciones', note:'Sesión especial de innovación.' },
+  { date:'Agosto 23, 2026', title:'Celebración a Kevin', note:'Edición de platillos favoritos.' }
 ];
 
-var team = [
+const team = [
   { name:'Diana', role:'Opinóloga profesional', img:'https://lascucharas.online/Diana.png',
     bio:'Diana siempre busca cocinar un platillo inesperado, si existe la opción de complicarse la vida, esa es la ideal. Su pasión es la mezcla de sabores exóticos y escapar del aburrimiento de la cocina fácil.' },
   { name:'Diego', role:'Padre del chapin', img:'https://lascucharas.online/Diego.png',
@@ -247,287 +518,184 @@ var team = [
   { name:'Nicole', role:'Amante de la cuchara', img:'https://lascucharas.online/Nico.png',
     bio:'Nico ha encontrado habilidades culinarias que no sabía que tenía gracias a las cucharas aunque su verdadera pasión es probar lo que le llevan las demás cucharas.' },
   { name:'Sebastian', role:'Miguel Ángel', img:'https://lascucharas.online/Migue.png',
-    bio:'Su nombre cambió después de ser adoptado por las cucharas, su única preocupación ahora es preparar algo rico (salmón) y poder disfrutar.' },
-  { name:'Sofia', role:'Máster Cuddlerr', img:'https://lascucharas.online/Sofi.png',
-    bio:'Sofía se especializa en sus amplias habilidades de improvisación y un motto de "mis ancestros me dirán cuándo parar de sazonar" que alimentan su instinto y confianza para traer platos que nunca ha probado antes.' },
-  { name:'Kevin', role:'Invitado/Futura posible Cuchara', img:'https://lascucharas.online/Kevin.png',
-    bio:'Invitado por el cumple, el estimadisimo Kevin probo la comida de las cucharas, se espera pueda seguir brindando mas amor y comida a las proximas reuniones.' }
+    bio:'Su nombre cambió después de ser adoptado por las cucharas. Su única preocupación es aportar su visión artística a cada preparación y disfrutar descubriendo nuevos sabores.' }
 ];
 
-/* ============== STATE ============== */
+/* ============== RENDERING LOGIC ============== */
 
-/* ============== REVEAL ON SCROLL ============== */
-var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){
-    if (entry.isIntersecting){
-      entry.target.classList.add('is-visible');
-      io.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }) : null;
-
-function observeReveals(nodeList){
-  if (prefersReduced || !io){
-    Array.prototype.forEach.call(nodeList, function(el){ el.classList.add('is-visible'); });
-    return;
-  }
-  Array.prototype.forEach.call(nodeList, function(el){ io.observe(el); });
+// Renderizar Línea de Tiempo
+function renderTimeline() {
+  const container = document.getElementById('timelineRoot');
+  container.innerHTML = timelineData.map((item, index) => `
+    <div class="timeline-item reveal" style="transition-delay: ${index * 0.1}s">
+      <div class="event-date">${item.date}</div>
+      <div class="timeline-content">
+        <h3>${item.title}</h3>
+        <p>${item.note}</p>
+      </div>
+    </div>
+  `).join('');
 }
 
-/* ============== FILTER TABS ============== */
-function positionIndicator(btn){
-  var indicator = document.getElementById('filterIndicator');
-  indicator.style.width = btn.offsetWidth + 'px';
-  indicator.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
-}
-
-function setupFilters(){
-  var buttons = document.querySelectorAll('.filter-btn');
-  Array.prototype.forEach.call(buttons, function(btn){
-    btn.addEventListener('click', function(){
-      Array.prototype.forEach.call(buttons, function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
-      state.filter = btn.getAttribute('data-filter');
-      positionIndicator(btn);
-      renderRecipes();
-    });
-  });
-  positionIndicator(document.querySelector('.filter-btn.active'));
-  window.addEventListener('resize', function(){
-    positionIndicator(document.querySelector('.filter-btn.active'));
-  });
-}
-
-/* ============== HERO TITLE REVEAL ============== */
-function buildHeroTitle(){
-  var el = document.getElementById('heroTitle');
-  var text = 'Las Cucharas';
-  var words = text.split(' ');
-  el.innerHTML = words.map(function(w, wi){
-    return '<span style="animation-delay:' + (wi * 0.12 + 0.15) + 's">' + esc(w) + (wi < words.length - 1 ? '&nbsp;' : '') + '</span>';
-  }).join('');
-}
-
-/* ============== HERO UTENSIL PARALLAX ============== */
-function buildUtensils(){
-  var layer = document.getElementById('utensil-layer');
-  var defs = [
-    { d:'M12 2c-2 0-3 2-3 4 0 1.6 1 3 2 3.6V20a1 1 0 0 0 2 0V9.6c1-.6 2-2 2-3.6 0-2-1-4-3-4z', x:'8%',  y:'20%', size:64, depth:0.03, rot:-18, color:'#B97A22' },
-    { d:'M12 2c-2 0-3 2-3 4 0 1.6 1 3 2 3.6V20a1 1 0 0 0 2 0V9.6c1-.6 2-2 2-3.6 0-2-1-4-3-4z', x:'88%', y:'60%', size:52, depth:0.05, rot:24, color:'#7E9765' },
-    { d:'M6 2v9a3 3 0 0 0 6 0V2m-3 9v11', x:'12%', y:'68%', size:56, depth:0.02, rot:12, color:'#5B2E45' },
-    { d:'M6 2v9a3 3 0 0 0 6 0V2m-3 9v11', x:'82%', y:'18%', size:44, depth:0.04, rot:-10, color:'#B97A22' },
-    { d:'M12 2c-2 0-3 2-3 4 0 1.6 1 3 2 3.6V20a1 1 0 0 0 2 0V9.6c1-.6 2-2 2-3.6 0-2-1-4-3-4z', x:'50%', y:'10%', size:36, depth:0.06, rot:6, color:'#7E9765' }
-  ];
-  defs.forEach(function(d){
-    var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.setAttribute('viewBox','0 0 24 24');
-    svg.setAttribute('width', d.size);
-    svg.setAttribute('height', d.size);
-    svg.style.left = d.x;
-    svg.style.top = d.y;
-    svg.style.transform = 'rotate(' + d.rot + 'deg)';
-    svg.dataset.depth = d.depth;
-    svg.dataset.baseRot = d.rot;
-    var path = document.createElementNS('http://www.w3.org/2000/svg','path');
-    path.setAttribute('d', d.d);
-    path.setAttribute('fill', 'none');
-    path.setAttribute('stroke', d.color);
-    path.setAttribute('stroke-width', '1.4');
-    path.setAttribute('stroke-linecap','round');
-    path.setAttribute('stroke-linejoin','round');
-    svg.appendChild(path);
-    layer.appendChild(svg);
-  });
-
-
-var state = { filter:'all', query:'', openId:null };
-
-/* ============== HELPERS ============== */
 function esc(s){
   return String(s).replace(/[&<>"']/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
   });
 }
 
-function matchesQuery(recipe, q){
-  if (!q) return true;
-  q = q.toLowerCase();
-  if (recipe.name.toLowerCase().indexOf(q) !== -1) return true;
-  if (recipe.subtitle.toLowerCase().indexOf(q) !== -1) return true;
-  for (var g = 0; g < recipe.groups.length; g++){
-    var items = recipe.groups[g].items;
-    for (var i = 0; i < items.length; i++){
-      if (items[i].toLowerCase().indexOf(q) !== -1) return true;
-    }
-  }
-  return false;
+ function thumb(recipe){
+
+return '<img src="Images/' + recipe.id + '.png" alt="" loading="lazy" ' +
+
+'onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+
+'<span style="display:none;">' + esc(recipe.name.charAt(0)) + '</span>';
+
+} 
+// Renderizar Equipo
+function renderTeam() {
+  const container = document.getElementById('teamRoot');
+  container.innerHTML = team.map((member, index) => `
+    <div class="team-member reveal" style="transition-delay: ${index * 0.1}s">
+      <div class="team-photo"><img src="${member.img}" alt="${member.name}" loading="lazy"></div>
+      <h3>${member.name}</h3>
+      <div class="team-role">${member.role}</div>
+      <div class="team-bio">${member.bio}</div>
+    </div>
+  `).join('');
 }
 
-function thumb(recipe){
-  return '<img src="Images/' + recipe.id + '.jpg" alt="" loading="lazy" ' +
-    'onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
-    '<span style="display:none;">' + esc(recipe.name.charAt(0)) + '</span>';
-}
-
-function detailHTML(recipe){
-  var html = '';
-  recipe.groups.forEach(function(g){
-    if (g.title) html += '<h5>' + esc(g.title) + '</h5>';
-    else html += '<h4>Ingredientes</h4>';
-    html += '<ul>' + g.items.map(function(i){ return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
+// Lógica del acordeón para las recetas
+window.toggleRecipe = function(element) {
+  const wrapper = element.closest('.recipe-wrapper');
+  const detail = wrapper.querySelector('.recipe-detail');
+  
+  const isOpen = wrapper.classList.contains('is-open');
+  
+  // Cerrar todos
+  document.querySelectorAll('.recipe-wrapper').forEach(w => {
+    w.classList.remove('is-open');
+    w.querySelector('.recipe-detail').style.maxHeight = null;
   });
-  html += '<div><h4>Preparación</h4><ol>' + recipe.steps.map(function(s){ return '<li>' + esc(s) + '</li>'; }).join('') + '</ol></div>';
-  if (recipe.video){
-    html += '<iframe src="' + recipe.video + '" title="Video de la receta" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+  
+  // Si no estaba abierto, lo abrimos
+  if (!isOpen) {
+    wrapper.classList.add('is-open');
+    detail.style.maxHeight = detail.scrollHeight + "px";
   }
-  return html;
-}
+};
 
-/* ============== RENDER RECIPES ============== */
-function renderRecipes(){
-  var root = document.getElementById('recipesRoot');
-  var html = '';
-  var anyVisible = false;
+// Renderizar Recetas con Filtros
+function renderRecipes(filterText = '', filterCategory = 'all') {
+  const container = document.getElementById('recipesRoot');
+  const term = filterText.toLowerCase();
+  
+  let html = '';
+  let foundAny = false;
 
-  categoryOrder.forEach(function(cat){
-    if (state.filter !== 'all' && state.filter !== cat) return;
-    var items = recipes.filter(function(r){ return r.category === cat && matchesQuery(r, state.query); });
-    if (items.length === 0) return;
-    anyVisible = true;
-    html += '<h2 class="category-title reveal is-visible">' + categoryLabels[cat] + '</h2>';
-    items.forEach(function(r, idx){
-      var isOpen = state.openId === r.id;
-      html += '' +
-        '<div class="recipe-row' + (isOpen ? ' is-open' : '') + '" data-id="' + r.id + '">' +
-          '<span class="recipe-index">' + String(idx + 1).padStart(2, '0') + '</span>' +
-          '<span class="recipe-thumb">' + thumb(r) + '</span>' +
-          '<div class="recipe-main">' +
-            '<div class="recipe-name">' + esc(r.name) + '</div>' +
-            '<div class="recipe-sub">' + esc(r.subtitle) + '</div>' +
-          '</div>' +
-          '<span class="recipe-caret">+</span>' +
-        '</div>' +
-        '<div class="recipe-detail" id="detail-' + r.id + '">' +
-          '<div class="recipe-detail-inner">' + detailHTML(r) + '</div>' +
-        '</div>';
+  categoryOrder.forEach(cat => {
+    if (filterCategory !== 'all' && filterCategory !== cat) return;
+
+    const filteredRecipes = recipes.filter(r => {
+      if (r.category !== cat) return false;
+      const matchName = r.name.toLowerCase().includes(term);
+      const matchIng = r.groups.some(g => g.items.some(i => i.toLowerCase().includes(term)));
+      return matchName || matchIng;
     });
+
+    if (filteredRecipes.length > 0) {
+      foundAny = true;
+      html += `<h3 class="category-title reveal">${categoryLabels[cat]}</h3>`;
+      
+      filteredRecipes.forEach((recipe, index) => {
+        let detailsHtml = '';
+        
+        // Ingredientes
+        recipe.groups.forEach(g => {
+          if (g.title) detailsHtml += `<h4>${g.title}</h4>`;
+          else detailsHtml += `<h4>Ingredientes</h4>`;
+          detailsHtml += `<ul>${g.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+        });
+        
+        // Pasos
+        detailsHtml += `<div><h4>Preparación</h4><ol>${recipe.steps.map(s => `<li>${s}</li>`).join('')}</ol></div>`;
+        
+        // Video opcional
+        if (recipe.video) {
+          detailsHtml += `<iframe src="${recipe.video}" allowfullscreen></iframe>`;
+        }
+
+        html += `
+          <div class="recipe-wrapper reveal" style="transition-delay: ${index * 0.05}s">
+            <div class="recipe-row" onclick="toggleRecipe(this)">
+              <div class="recipe-thumb">${thumb(recipe)}</div>
+              <div class="recipe-main">
+                <h4 class="recipe-name">${recipe.name}</h4>
+                <div class="recipe-sub">${recipe.subtitle}</div>
+              </div>
+              <div class="recipe-caret">+</div>
+            </div>
+            <div class="recipe-detail">
+              <div class="recipe-detail-inner">
+                ${detailsHtml}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
   });
 
-  if (!anyVisible){
-    html = '<p class="no-results">No encontramos recetas que coincidan. Prueba otra palabra clave.</p>';
+  if (!foundAny) {
+    html = '<div class="no-results">No se encontraron recetas con esos ingredientes o nombre.</div>';
   }
 
-  root.innerHTML = html;
+  container.innerHTML = html;
+  observeElements(); // Re-aplicar animaciones a los nuevos elementos
+}
 
-  Array.prototype.forEach.call(root.querySelectorAll('.recipe-row'), function(row){
-    row.addEventListener('click', function(){
-      var id = row.getAttribute('data-id');
-      state.openId = (state.openId === id) ? null : id;
-      renderRecipes();
-      if (state.openId === id){
-        setTimeout(function(){
-          row.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'nearest' });
-        }, 50);
+/* ============== EVENT LISTENERS ============== */
+const searchInput = document.getElementById('searchInput');
+const filterBtns = document.querySelectorAll('.filter-btn');
+
+searchInput.addEventListener('input', (e) => {
+  const activeBtn = document.querySelector('.filter-btn.active');
+  renderRecipes(e.target.value, activeBtn.dataset.filter);
+});
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    renderRecipes(searchInput.value, e.target.dataset.filter);
+
+    document.getElementById('seccion-recetas').scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'start'
+      });
+  });
+});
+/* ============== ANIMATIONS (Intersection Observer) ============== */
+function observeElements() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
       }
     });
-  });
+  }, { threshold: 0.1 });
 
-  // open the detail panel if applicable, using max-height for a smooth expand
-  if (state.openId){
-    var panel = document.getElementById('detail-' + state.openId);
-    if (panel){
-      panel.style.maxHeight = panel.scrollHeight + 'px';
-    }
-  }
-}
-
-/* ============== TIMELINE ============== */
-function renderTimeline(){
-  var root = document.getElementById('timelineRoot');
-  var html = '';
-  timelineData.forEach(function(item){
-    html += '' +
-      '<div class="timeline-item reveal">' +
-        '<div class="event-date">' + esc(item.date) + '</div>' +
-        '<div class="timeline-content">' +
-          '<h3>' + esc(item.title) + '</h3>' +
-          '<p>' + esc(item.note) + '</p>' +
-        '</div>' +
-      '</div>';
-  });
-  root.innerHTML = html;
-  observeReveals(root.querySelectorAll('.reveal'));
-}
-
-/* ============== TEAM ============== */
-function renderTeam(){
-  var root = document.getElementById('teamRoot');
-  var html = '';
-  team.forEach(function(m){
-    html += '' +
-      '<div class="team-member reveal">' +
-        '<div class="team-photo"><img src="' + m.img + '" alt="' + esc(m.name) + '" loading="lazy"></div>' +
-        '<h3>' + esc(m.name) + '</h3>' +
-        '<div class="team-role">' + esc(m.role) + '</div>' +
-        '<p class="team-bio">' + esc(m.bio) + '</p>' +
-      '</div>';
-  });
-  root.innerHTML = html;
-  observeReveals(root.querySelectorAll('.reveal'));
-}
-
-/* ============== REVEAL ON SCROLL (fade only) ============== */
-var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){
-    if (entry.isIntersecting){
-      entry.target.classList.add('is-visible');
-      io.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' }) : null;
-
-function observeReveals(nodeList){
-  if (prefersReduced || !io){
-    Array.prototype.forEach.call(nodeList, function(el){ el.classList.add('is-visible'); });
-    return;
-  }
-  Array.prototype.forEach.call(nodeList, function(el){ io.observe(el); });
-}
-
-/* ============== FILTERS ============== */
-function setupFilters(){
-  var buttons = document.querySelectorAll('.filter-btn');
-  var controls = document.querySelector('.controls');
-  Array.prototype.forEach.call(buttons, function(btn){
-    btn.addEventListener('click', function(){
-      Array.prototype.forEach.call(buttons, function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
-      state.filter = btn.getAttribute('data-filter');
-      state.openId = null;
-      renderRecipes();
-      controls.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
-    });
-  });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
 /* ============== INIT ============== */
-document.addEventListener('DOMContentLoaded', function(){
-  setupFilters();
-  renderRecipes();
-  renderTimeline();
-  renderTeam();
-  observeReveals(document.querySelectorAll('.philosophy.reveal, .section-title.reveal, .section-header.reveal'));
+renderTimeline();
+renderTeam();
+renderRecipes();
+observeElements();
 
-  document.getElementById('searchInput').addEventListener('input', function(e){
-    state.query = e.target.value;
-    state.openId = null;
-    renderRecipes();
-  });
-});
 })();
 </script>
-
 </body>
 </html>
